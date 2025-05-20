@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from './Button';
+import { getGradedExercises, downloadFile } from './APIService';
 
 const FileDownloader = ({ exerciseType }) => {
   const [files, setFiles] = useState([]);
@@ -15,62 +16,29 @@ const FileDownloader = ({ exerciseType }) => {
   const fetchGradedFiles = async () => {
     setIsLoading(true);
     setError('');
-    
+
     try {
-      const token = localStorage.getItem('token');
-      
-      const response = await fetch(`http://localhost:8000/exercises/graded?type=${exerciseType}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch graded files');
+      const response = await getGradedExercises(exerciseType);
+      if (response.error) {
+        throw new Error(response.error);
       }
-      
-      const data = await response.json();
-      setFiles(data.files || []);
+      setFiles(response.files || []);
     } catch (error) {
-      setError('Error loading graded files. Please try again.');
+      setError(error.message || 'Error loading graded files. Please try again.');
       console.error('Error fetching graded files:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const downloadFile = async (filename) => {
+  const handleDownload = async (filename) => {
     try {
-      const token = localStorage.getItem('token');
-      
-      const response = await fetch(`http://localhost:8000/exercises/download?filename=${filename}&type=${exerciseType}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to download file');
+      const response = await downloadFile(filename, exerciseType);
+      if (response.error) {
+        throw new Error(response.error);
       }
-      
-      // Create a blob from the response
-      const blob = await response.blob();
-      
-      // Create a temporary URL for the blob
-      const url = window.URL.createObjectURL(blob);
-      
-      // Create a temporary link element to trigger download
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      
-      // Clean up
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
     } catch (error) {
-      setError('Error downloading file. Please try again.');
+      setError(error.message || 'Error downloading file. Please try again.');
       console.error('Error downloading file:', error);
     }
   };
@@ -109,9 +77,9 @@ const FileDownloader = ({ exerciseType }) => {
   return (
     <div style={containerStyle}>
       <h3 style={headingStyle}>Graded Exercises</h3>
-      
+
       {error && <div style={errorStyle}>{error}</div>}
-      
+
       {isLoading ? (
         <p>Loading files...</p>
       ) : files.length === 0 ? (
@@ -121,22 +89,18 @@ const FileDownloader = ({ exerciseType }) => {
           {files.map((file, index) => (
             <div key={index} style={fileItemStyle}>
               <span>{file.name}</span>
-              <Button 
-                variant="primary" 
-                size="small" 
-                onClick={() => downloadFile(file.name)}
-              >
+              <Button variant="primary" size="small" onClick={() => handleDownload(file.name)}>
                 Download
               </Button>
             </div>
           ))}
         </div>
       )}
-      
+
       <div style={{ marginTop: '15px' }}>
-        <Button 
-          variant="secondary" 
-          size="medium" 
+        <Button
+          variant="secondary"
+          size="medium"
           onClick={fetchGradedFiles}
           disabled={isLoading || !exerciseType}
         >

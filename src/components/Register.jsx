@@ -1,29 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from './Button';
-import { login, verifyToken } from './APIService';
+import { registerUser } from './APIService';
 
-const Login = ({ onLogin }) => {
+const Register = ({ onRegister }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('tutor');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const checkToken = async () => {
-      try {
-        const response = await verifyToken();
-        if (response.username) {
-          onLogin(response.username);
-        }
-      } catch (error) {
-        console.error('Error verifying token:', error);
-        // Clear invalid token
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('refreshToken');
-      }
-    };
-    checkToken();
-  }, [onLogin]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,20 +15,20 @@ const Login = ({ onLogin }) => {
     setIsLoading(true);
 
     try {
-      const credentials = { username, password };
-      const response = await login(credentials);
+      const response = await registerUser(username, password, role);
       if (response.error) {
         throw new Error(response.error);
       }
-      onLogin(username);
+      onRegister(username);
     } catch (error) {
-      setError(error.message || 'Invalid username or password');
+      setError('Error registering user. Please try again.');
+      console.error('Registration error:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const containerStyle = {
+const containerStyle = {
     maxWidth: '400px',
     margin: '40px auto',
     padding: '20px',
@@ -73,10 +57,10 @@ const Login = ({ onLogin }) => {
     color: '#ef4444',
     marginBottom: '15px',
   };
-
+  
   return (
     <div style={containerStyle}>
-      <h2 style={{ textAlign: 'center', marginBottom: '20px', color: '#1f2937' }}>Login</h2>
+      <h2 style={{ textAlign: 'center', marginBottom: '20px', color: '#1f2937' }}>Register</h2>
       {error && <div style={errorStyle}>{error}</div>}
       <form onSubmit={handleSubmit}>
         <div>
@@ -101,12 +85,29 @@ const Login = ({ onLogin }) => {
             required
           />
         </div>
-        <Button type="submit" variant="primary" fullWidth={true} disabled={isLoading}>
-          {isLoading ? 'Logging in...' : 'Login'}
+        <div>
+          <label style={labelStyle} htmlFor="role">Role</label>
+          <select
+            style={inputStyle}
+            id="role"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <option value="tutor">Tutor</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <Button 
+          type="submit" 
+          variant="primary" 
+          fullWidth={true}
+          disabled={isLoading}
+        >
+          {isLoading ? 'Registering...' : 'Register'}
         </Button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;
