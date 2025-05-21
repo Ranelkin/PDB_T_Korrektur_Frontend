@@ -125,52 +125,53 @@ export const downloadFile = async (filename, type) => {
 };
 
 export const uploadSubmissions = async (exerciseType, files) => {
+  // Validate inputs
+  if (!exerciseType) {
+    console.error('No exercise type provided');
+    throw new Error('Exercise type is required');
+  }
+  if (!files || files.length === 0) {
+    console.error('No files provided');
+    throw new Error('At least one file is required');
+  }
+
+  // Log submitted files
+  console.log('Submitting files:', files.map(f => ({
+    name: f.name,
+    size: `${(f.size / 1024).toFixed(2)} KB`,
+    type: f.type,
+    isFile: f instanceof File
+  })));
+
+  const formData = new FormData();
+  files.forEach(file => formData.append('files', file));
+  formData.append('exercise_type', exerciseType);
+
+  // Log FormData contents
+  console.log('FormData contents:');
+  for (let [key, value] of formData.entries()) {
+    console.log(`${key}:`, value instanceof File ? `${value.name} (${(value.size / 1024).toFixed(2)} KB)` : value);
+  }
+
+  const token = localStorage.getItem('authToken');
+  if (!token) {
+    console.error('No authentication token found in localStorage');
+    throw new Error('Please log in to submit files');
+  }
+
   try {
-    const formData = new FormData();
-    files.forEach((file) => formData.append('files', file));
-    formData.append('exercise_type', exerciseType);
-
-    const response = await api.post('/exercises/submit', formData);
-    const { results } = response.data;
-
-    if (!results || results.length === 0) {
-      console.error('No results in response');
-      return response.data;
-    }
-
-    const hasSuccessfulFiles = results.some(result => result.status === 'success' && result.feedback_file);
-    results.forEach(result => {
-      if (result.status === 'success' && result.feedback_file) {
-        console.log(`File ${result.filename} processed: ${result.message}`);
-        console.log(`Feedback file: ${result.feedback_file}`);
-      } else {
-        console.error(`Error with ${result.filename}: ${result.message || 'No feedback file available'}`);
+    const response = await api.post('/exercises/submit', formData, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        // Do not set Content-Type; let browser handle multipart/form-data
       }
     });
-
-    if (hasSuccessfulFiles) {
-      const downloadResponse = await api.get(`/exercises/download?exercise_type=${exerciseType}`, {
-        responseType: 'blob'
-      });
-      const zipFilename = downloadResponse.headers['content-disposition']
-        ? downloadResponse.headers['content-disposition'].match(/filename="(.+)"/)?.[1]
-        : 'feedback.zip';
-      const url = window.URL.createObjectURL(new Blob([downloadResponse.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', zipFilename);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      console.log(`Downloaded ZIP archive: ${zipFilename}`);
-    } else {
-      console.error('No successful files to download');
-    }
-
+    console.log('Upload response:', response.data);
     return response.data;
   } catch (error) {
     console.error('Error uploading files:', error);
-    return handleApiError(error);
+    const errorMessage = error.response?.data?.detail || error.message || 'Failed to upload files';
+    throw new Error(Array.isArray(errorMessage) ? JSON.stringify(errorMessage) : errorMessage);
   }
 };
 

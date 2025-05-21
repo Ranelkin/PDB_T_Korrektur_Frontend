@@ -23,40 +23,40 @@ const FileUploader = ({ username }) => {
     setFiles(prevFiles => [...prevFiles, ...uniqueFiles]);
   };
 
-  const handleSubmit = async () => {
-    if (!exerciseType) {
-      setUploadStatus({ message: 'Please select an exercise type', error: true });
-      return;
-    }
+const handleSubmit = async () => {
+  if (!exerciseType) {
+    setUploadStatus({ message: 'Please select an exercise type', error: true });
+    return;
+  }
 
-    if (files.length === 0) {
-      setUploadStatus({ message: 'Please add files to upload', error: true });
-      return;
-    }
+  if (files.length === 0) {
+    setUploadStatus({ message: 'Please add files to upload', error: true });
+    return;
+  }
 
-    setIsUploading(true);
-    setUploadStatus({ message: '', error: false });
+  setIsUploading(true);
+  setUploadStatus({ message: '', error: false });
 
-    try {
-      const response = await uploadSubmissions(exerciseType, files);
-      if (response.error) {
-        throw new Error(response.error);
-      }
-      setUploadStatus({
-        message: `Successfully uploaded ${response.uploaded_files.length} files`,
-        error: false,
-      });
-      setFiles([]);
-    } catch (error) {
-      setUploadStatus({
-        message: error.message || 'Error uploading files. Please try again.',
-        error: true,
-      });
-      console.error('Error uploading files:', error);
-    } finally {
-      setIsUploading(false);
-    }
-  };
+  try {
+    console.log('Submitting - exerciseType:', exerciseType, 'files:', files.map(f => f.name));
+    const response = await uploadSubmissions(exerciseType, files);
+    setUploadStatus({
+      message: `Successfully uploaded ${response.uploaded_files.length} files: ${response.uploaded_files.join(', ')}`,
+      error: false,
+    });
+    setFiles([]);
+  } catch (error) {
+    console.error('Error uploading files:', error);
+    setUploadStatus({
+      message: error.message === 'Please log in to submit files'
+        ? 'Please log in to submit files'
+        : `Error uploading files: ${error.message || 'Please try again'}`,
+      error: true,
+    });
+  } finally {
+    setIsUploading(false);
+  }
+};
 
   const containerStyle = {
     maxWidth: '800px',
