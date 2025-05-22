@@ -8,9 +8,6 @@ if (!API_BASE_URL) {
 
 const api = axios.create({
   baseURL: API_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
   withCredentials: true,
 });
 
@@ -123,7 +120,6 @@ export const downloadFile = async (filename, type) => {
     return handleApiError(error);
   }
 };
-
 export const uploadSubmissions = async (exerciseType, files) => {
   // Validate inputs
   if (!exerciseType) {
@@ -144,8 +140,8 @@ export const uploadSubmissions = async (exerciseType, files) => {
   })));
 
   const formData = new FormData();
-  files.forEach(file => formData.append('files', file));
-  formData.append('exercise_type', exerciseType);
+  files.forEach(file => formData.append('files', file)); 
+  formData.append('exercise_type', exerciseType); // Append exercise_type
 
   // Log FormData contents
   console.log('FormData contents:');
@@ -162,8 +158,8 @@ export const uploadSubmissions = async (exerciseType, files) => {
   try {
     const response = await api.post('/exercises/submit', formData, {
       headers: {
-        'Authorization': `Bearer ${token}`,
-        // Do not set Content-Type; let browser handle multipart/form-data
+        'Authorization': `Bearer ${token}`
+      
       }
     });
     console.log('Upload response:', response.data);
@@ -174,7 +170,6 @@ export const uploadSubmissions = async (exerciseType, files) => {
     throw new Error(Array.isArray(errorMessage) ? JSON.stringify(errorMessage) : errorMessage);
   }
 };
-
 export const registerUser = async (username, password, role) => {
   try {
     const response = await api.post("/register/user", { username, password, role });
