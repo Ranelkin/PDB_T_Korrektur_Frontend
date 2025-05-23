@@ -126,14 +126,8 @@ export const downloadFile = async (exerciseType) => {
 };
 
 export const uploadSubmissions = async (exerciseType, files) => {
-  if (!exerciseType) {
-    console.error('No exercise type provided');
-    throw new Error('Exercise type is required');
-  }
-  if (!files || files.length === 0) {
-    console.error('No files provided');
-    throw new Error('At least one file is required');
-  }
+  if (!exerciseType) throw new Error('Exercise type is required');
+  if (!files || files.length === 0) throw new Error('At least one file is required');
 
   console.log('Submitting files:', files.map(f => ({
     name: f.name,
@@ -143,7 +137,12 @@ export const uploadSubmissions = async (exerciseType, files) => {
   })));
 
   const formData = new FormData();
-  files.forEach(file => formData.append('files', file));
+  files.forEach(file => {
+    if (!file.name.toLowerCase().endsWith('.zip') && !file.name.toLowerCase().endsWith('.json')) {
+      throw new Error('Only JSON or ZIP files are allowed');
+    }
+    formData.append('files', file);
+  });
   formData.append('exercise_type', exerciseType);
 
   console.log('FormData contents:');
@@ -152,16 +151,11 @@ export const uploadSubmissions = async (exerciseType, files) => {
   }
 
   const token = localStorage.getItem('authToken');
-  if (!token) {
-    console.error('No authentication token found in localStorage');
-    throw new Error('Please log in to submit files');
-  }
+  if (!token) throw new Error('Please log in to submit files');
 
   try {
     const response = await api.post('/exercises/submit', formData, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
+      headers: { 'Authorization': `Bearer ${token}` }
     });
     console.log('Upload response:', response.data);
     const feedbackFiles = response.data.results
@@ -173,18 +167,13 @@ export const uploadSubmissions = async (exerciseType, files) => {
         message: result.message
       }));
     const availableGradedFiles = response.data.available_graded_files || [];
-    return {
-      ...response.data,
-      feedbackFiles,
-      availableGradedFiles
-    };
+    return { ...response.data, feedbackFiles, availableGradedFiles };
   } catch (error) {
     console.error('Error uploading files:', error);
     const errorMessage = error.response?.data?.detail || error.message || 'Failed to upload files';
     throw new Error(Array.isArray(errorMessage) ? JSON.stringify(errorMessage) : errorMessage);
   }
 };
-
 export const connectToDepictFiles = (exerciseType, onFilesReceived, onError) => {
   const token = localStorage.getItem('authToken');
   if (!token) {
