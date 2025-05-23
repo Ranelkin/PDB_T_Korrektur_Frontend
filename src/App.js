@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import FileUploader from './components/FileUploader';
 import Login from './components/Login';
-import FileDownloader from './components/FileDownloader';
 import './App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
-  const [selectedExerciseType, setSelectedExerciseType] = useState('');
+
 
   useEffect(() => {
     // Check if token exists in localStorage
@@ -51,9 +50,7 @@ function App() {
     setUsername('');
   };
 
-  const handleExerciseTypeChange = (type) => {
-    setSelectedExerciseType(type);
-  };
+ 
 
   const headerStyle = {
     backgroundColor: '#f3f4f6',
@@ -103,10 +100,9 @@ function App() {
           
           <FileUploader 
             username={username} 
-            onExerciseTypeChange={handleExerciseTypeChange}
           />
           
-          <FileDownloader exerciseType={selectedExerciseType} />
+         
         </>
       ) : (
         <Login onLogin={handleLogin} />

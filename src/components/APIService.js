@@ -29,7 +29,7 @@ api.interceptors.response.use(
       const refreshTokenValue = localStorage.getItem('refreshToken');
       if (refreshTokenValue) {
         try {
-          const response = await refreshToken(refreshTokenValue); // Fixed: Call the exported function
+          const response = await refreshToken(refreshTokenValue);
           if (!response.error) {
             const originalRequest = error.config;
             originalRequest.headers['Authorization'] = `Bearer ${response.access_token}`;
@@ -101,12 +101,16 @@ export const getGradedExercises = async (type) => {
   }
 };
 
-export const downloadFile = async (filename, type) => {
+export const downloadFile = async (exerciseType) => {
   try {
     const response = await api.get("/exercises/download", {
-      params: { filename, type },
+      params: { exercise_type: exerciseType },
       responseType: 'blob'
     });
+    const contentDisposition = response.headers['content-disposition'];
+    const filename = contentDisposition
+      ? contentDisposition.split('filename=')[1].replace(/"/g, '')
+      : `feedback_${exerciseType}.zip`;
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement('a');
     link.href = url;
@@ -115,13 +119,13 @@ export const downloadFile = async (filename, type) => {
     link.click();
     document.body.removeChild(link);
     window.URL.revokeObjectURL(url);
-    return { success: true };
+    return { success: true, filename };
   } catch (error) {
     return handleApiError(error);
   }
 };
+
 export const uploadSubmissions = async (exerciseType, files) => {
-  // Validate inputs
   if (!exerciseType) {
     console.error('No exercise type provided');
     throw new Error('Exercise type is required');
@@ -131,7 +135,6 @@ export const uploadSubmissions = async (exerciseType, files) => {
     throw new Error('At least one file is required');
   }
 
-  // Log submitted files
   console.log('Submitting files:', files.map(f => ({
     name: f.name,
     size: `${(f.size / 1024).toFixed(2)} KB`,
@@ -140,10 +143,9 @@ export const uploadSubmissions = async (exerciseType, files) => {
   })));
 
   const formData = new FormData();
-  files.forEach(file => formData.append('files', file)); 
-  formData.append('exercise_type', exerciseType); // Append exercise_type
+  files.forEach(file => formData.append('files', file));
+  formData.append('exercise_type', exerciseType);
 
-  // Log FormData contents
   console.log('FormData contents:');
   for (let [key, value] of formData.entries()) {
     console.log(`${key}:`, value instanceof File ? `${value.name} (${(value.size / 1024).toFixed(2)} KB)` : value);
@@ -159,17 +161,70 @@ export const uploadSubmissions = async (exerciseType, files) => {
     const response = await api.post('/exercises/submit', formData, {
       headers: {
         'Authorization': `Bearer ${token}`
-      
       }
     });
     console.log('Upload response:', response.data);
-    return response.data;
+    const feedbackFiles = response.data.results
+      .filter(result => result.status === 'success' && result.feedback_file)
+      .map(result => ({
+        filename: result.feedback_file,
+        status: result.status,
+        grading: result.grading,
+        message: result.message
+      }));
+    const availableGradedFiles = response.data.available_graded_files || [];
+    return {
+      ...response.data,
+      feedbackFiles,
+      availableGradedFiles
+    };
   } catch (error) {
     console.error('Error uploading files:', error);
     const errorMessage = error.response?.data?.detail || error.message || 'Failed to upload files';
     throw new Error(Array.isArray(errorMessage) ? JSON.stringify(errorMessage) : errorMessage);
   }
 };
+
+export const connectToDepictFiles = (exerciseType, onFilesReceived, onError) => {
+  const token = localStorage.getItem('authToken');
+  if (!token) {
+    console.error('No authentication token found');
+    onError(new Error('Please log in to connect to WebSocket'));
+    return;
+  }
+
+  const ws = new WebSocket(`ws://localhost:8000/ws/depict-corrected-files?exercise_type=${exerciseType}&token=${token}`);
+  
+  ws.onopen = () => {
+    console.log('WebSocket connected for depict-corrected-files');
+  };
+
+  ws.onmessage = (event) => {
+    try {
+      const data = JSON.parse(event.data);
+      if (data.error) {
+        onError(new Error(data.error));
+      } else {
+        onFilesReceived(data.available_files);
+      }
+    } catch (error) {
+      console.error('Error parsing WebSocket message:', error);
+      onError(error);
+    }
+  };
+
+  ws.onerror = (error) => {
+    console.error('WebSocket error:', error);
+    onError(error);
+  };
+
+  ws.onclose = () => {
+    console.log('WebSocket closed');
+  };
+
+  return () => ws.close();
+};
+
 export const registerUser = async (username, password, role) => {
   try {
     const response = await api.post("/register/user", { username, password, role });

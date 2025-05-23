@@ -1,20 +1,40 @@
-import React, { useState } from 'react';
+import  { useState, useEffect } from 'react';
 import DropZone from './DropZone';
 import FileList from './FileList';
 import FileCount from './FileCount';
 import Button from './Button';
-import { uploadSubmissions } from './APIService';
+import { uploadSubmissions, connectToDepictFiles, downloadFile } from './APIService';
 
 const FileUploader = ({ username }) => {
   const [files, setFiles] = useState([]);
   const [exerciseType, setExerciseType] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState({ message: '', error: false });
+  const [feedbackFiles, setFeedbackFiles] = useState([]);
+  const [availableGradedFiles, setAvailableGradedFiles] = useState([]);
 
   const EXERCISE_TYPES = [
     { id: 'ER', name: 'ER Diagram' },
     { id: 'KEYS', name: 'Keys' },
   ];
+
+  useEffect(() => {
+    let unsubscribe;
+    if (exerciseType && username) {
+      unsubscribe = connectToDepictFiles(
+        exerciseType,
+        (files) => {
+          setAvailableGradedFiles(files);
+          console.log('Received graded files:', files);
+        },
+        (error) => {
+          console.error('WebSocket error:', error);
+          setUploadStatus({ message: `WebSocket error: ${error.message}`, error: true });
+        }
+      );
+    }
+    return () => unsubscribe && unsubscribe();
+  }, [exerciseType, username]);
 
   const handleFiles = (newFiles) => {
     const uniqueFiles = Array.from(newFiles).filter(
@@ -23,40 +43,54 @@ const FileUploader = ({ username }) => {
     setFiles(prevFiles => [...prevFiles, ...uniqueFiles]);
   };
 
-const handleSubmit = async () => {
-  if (!exerciseType) {
-    setUploadStatus({ message: 'Please select an exercise type', error: true });
-    return;
-  }
+  const handleSubmit = async () => {
+    if (!exerciseType) {
+      setUploadStatus({ message: 'Please select an exercise type', error: true });
+      return;
+    }
 
-  if (files.length === 0) {
-    setUploadStatus({ message: 'Please add files to upload', error: true });
-    return;
-  }
+    if (files.length === 0) {
+      setUploadStatus({ message: 'Please add files to upload', error: true });
+      return;
+    }
 
-  setIsUploading(true);
-  setUploadStatus({ message: '', error: false });
+    setIsUploading(true);
+    setUploadStatus({ message: '', error: false });
 
-  try {
-    console.log('Submitting - exerciseType:', exerciseType, 'files:', files.map(f => f.name));
-    const response = await uploadSubmissions(exerciseType, files);
-    setUploadStatus({
-      message: `Successfully uploaded ${response.uploaded_files.length} files: ${response.uploaded_files.join(', ')}`,
-      error: false,
-    });
-    setFiles([]);
-  } catch (error) {
-    console.error('Error uploading files:', error);
-    setUploadStatus({
-      message: error.message === 'Please log in to submit files'
-        ? 'Please log in to submit files'
-        : `Error uploading files: ${error.message || 'Please try again'}`,
-      error: true,
-    });
-  } finally {
-    setIsUploading(false);
-  }
-};
+    try {
+      console.log('Submitting - exerciseType:', exerciseType, 'files:', files.map(f => f.name));
+      const response = await uploadSubmissions(exerciseType, files);
+      setFeedbackFiles(response.feedbackFiles || []);
+      setAvailableGradedFiles(response.availableGradedFiles || []);
+      setUploadStatus({
+        message: `Successfully uploaded ${response.uploaded_files.length} files: ${response.uploaded_files.join(', ')}`,
+        error: false,
+      });
+      setFiles([]);
+    } catch (error) {
+      console.error('Error uploading files:', error);
+      setUploadStatus({
+        message: error.message === 'Please log in to submit files'
+          ? 'Please log in to submit files'
+          : `Error uploading files: ${error.message || 'Please try again'}`,
+        error: true,
+      });
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleDownload = async () => {
+    try {
+      const response = await downloadFile(exerciseType);
+      if (response.error) {
+        throw new Error(response.error);
+      }
+      setUploadStatus({ message: `Downloaded feedback: ${response.filename}`, error: false });
+    } catch (error) {
+      setUploadStatus({ message: `Error downloading feedback: ${error.message}`, error: true });
+    }
+  };
 
   const containerStyle = {
     maxWidth: '800px',
@@ -112,6 +146,18 @@ const handleSubmit = async () => {
     display: uploadStatus.message ? 'block' : 'none',
   };
 
+  const feedbackStyle = {
+    marginTop: '20px',
+    padding: '15px',
+    backgroundColor: '#f9fafb',
+    borderRadius: '6px',
+    border: '1px solid #e5e7eb',
+  };
+
+  const fileItemStyle = {
+    marginBottom: '10px',
+  };
+
   return (
     <div style={containerStyle}>
       <div style={userInfoStyle}>Logged in as: {username}</div>
@@ -141,6 +187,44 @@ const handleSubmit = async () => {
 
       {uploadStatus.message && (
         <div style={statusMessageStyle}>{uploadStatus.message}</div>
+      )}
+
+      {(feedbackFiles.length > 0 || availableGradedFiles.length > 0) && (
+        <div style={feedbackStyle}>
+          <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '10px' }}>
+            Correction Results
+          </h3>
+          {feedbackFiles.length > 0 && (
+            <div>
+              <h4 style={{ fontWeight: '500', marginBottom: '8px' }}>Submitted Files</h4>
+              {feedbackFiles.map((file, index) => (
+                <div key={index} style={fileItemStyle}>
+                  <p>File: {file.filename}</p>
+                  <p>Status: {file.status}</p>
+                  {file.grading && (
+                    <p>Grade: {file.grading.total_points}/{file.grading.max_points}</p>
+                  )}
+                  <p>{file.message}</p>
+                </div>
+              ))}
+            </div>
+          )}
+          {availableGradedFiles.length > 0 && (
+            <div>
+              <h4 style={{ fontWeight: '500', marginBottom: '8px' }}>
+                Available Graded Files
+              </h4>
+              {availableGradedFiles.map((file, index) => (
+                <div key={index} style={fileItemStyle}>
+                  {file}
+                </div>
+              ))}
+              <Button variant="primary" size="small" onClick={handleDownload}>
+                Download Feedback ZIP
+              </Button>
+            </div>
+          )}
+        </div>
       )}
 
       <div style={buttonContainerStyle}>
