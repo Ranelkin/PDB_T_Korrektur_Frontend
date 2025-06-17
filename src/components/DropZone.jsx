@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 
-const DropZone = ({ onFilesAdded }) => {
+const DropZone = ({ onFileAdded }) => {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
 
@@ -16,7 +16,10 @@ const DropZone = ({ onFilesAdded }) => {
   const handleDrop = (e) => {
     e.preventDefault();
     setIsDragging(false);
-    onFilesAdded(e.dataTransfer.files);
+    const file = e.dataTransfer.files[0]; // Take only the first file
+    if (file) {
+      onFileAdded(file);
+    }
   };
 
   const handleClick = () => {
@@ -24,7 +27,10 @@ const DropZone = ({ onFilesAdded }) => {
   };
 
   const handleFileChange = (e) => {
-    onFilesAdded(e.target.files);
+    const file = e.target.files[0]; // Take only the first file
+    if (file) {
+      onFileAdded(file);
+    }
   };
 
   const dropZoneStyle = {
@@ -62,12 +68,12 @@ const DropZone = ({ onFilesAdded }) => {
       onDrop={handleDrop}
       onClick={handleClick}
     >
-      <p style={textStyle}>Drag and drop files here or click to select</p>
+      <p style={textStyle}>Drag and drop a ZIP file here or click to select</p>
       <input
         type="file"
         ref={fileInputRef}
         style={inputStyle}
-        multiple
+        accept=".zip" // Restrict to ZIP files
         onChange={handleFileChange}
       />
     </div>

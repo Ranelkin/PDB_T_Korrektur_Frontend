@@ -107,42 +107,62 @@ export const downloadFile = async (exerciseType) => {
       params: { exercise_type: exerciseType },
       responseType: 'blob'
     });
+    
+    // Extract filename from Content-Disposition header
     const contentDisposition = response.headers['content-disposition'];
-    const filename = contentDisposition
-      ? contentDisposition.split('filename=')[1].replace(/"/g, '')
-      : `feedback_${exerciseType}.zip`;
-    const url = window.URL.createObjectURL(new Blob([response.data]));
+    let filename = `feedback_${exerciseType}.zip`;
+    
+    if (contentDisposition) {
+      // Parse filename from header
+      const filenameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+      if (filenameMatch && filenameMatch[1]) {
+        filename = filenameMatch[1].replace(/['"]/g, '');
+      }
+    }
+    
+    // Create blob URL and trigger download
+    const blob = new Blob([response.data], { type: 'application/zip' });
+    const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
     link.setAttribute('download', filename);
+    link.style.display = 'none';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
+    
+    // Clean up the blob URL after a short delay
+    setTimeout(() => {
+      window.URL.revokeObjectURL(url);
+    }, 100);
+    
     return { success: true, filename };
   } catch (error) {
+    console.error('Download error:', error);
+    if (error.response?.status === 404) {
+      return { error: "No feedback files available for download" };
+    }
     return handleApiError(error);
   }
 };
 
-export const uploadSubmissions = async (exerciseType, files) => {
+export const uploadSubmissions = async (exerciseType, file) => {
   if (!exerciseType) throw new Error('Exercise type is required');
-  if (!files || files.length === 0) throw new Error('At least one file is required');
+  if (!file || !(file instanceof File)) throw new Error('A valid file is required');
 
-  console.log('Submitting files:', files.map(f => ({
-    name: f.name,
-    size: `${(f.size / 1024).toFixed(2)} KB`,
-    type: f.type,
-    isFile: f instanceof File
-  })));
+  console.log('Submitting file:', {
+    name: file.name,
+    size: `${(file.size / 1024).toFixed(2)} KB`,
+    type: file.type,
+    isFile: file instanceof File
+  });
+
+  if (!file.name.toLowerCase().endsWith('.zip')) {
+    throw new Error('Only ZIP files are allowed');
+  }
 
   const formData = new FormData();
-  files.forEach(file => {
-    if (!file.name.toLowerCase().endsWith('.zip') && !file.name.toLowerCase().endsWith('.json')) {
-      throw new Error('Only JSON or ZIP files are allowed');
-    }
-    formData.append('files', file);
-  });
+  formData.append('file', file);
   formData.append('exercise_type', exerciseType);
 
   console.log('FormData contents:');
@@ -158,6 +178,7 @@ export const uploadSubmissions = async (exerciseType, files) => {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     console.log('Upload response:', response.data);
+    
     const feedbackFiles = response.data.results
       .filter(result => result.status === 'success' && result.feedback_file)
       .map(result => ({
@@ -166,14 +187,23 @@ export const uploadSubmissions = async (exerciseType, files) => {
         grading: result.grading,
         message: result.message
       }));
+    
     const availableGradedFiles = response.data.available_graded_files || [];
-    return { ...response.data, feedbackFiles, availableGradedFiles };
+    
+    return { 
+      ...response.data, 
+      feedbackFiles, 
+      availableGradedFiles,
+      hasGradedResults: response.data.has_graded_results || false,
+      finalGradedZip: response.data.final_graded_zip || null
+    };
   } catch (error) {
     console.error('Error uploading files:', error);
     const errorMessage = error.response?.data?.detail || error.message || 'Failed to upload files';
     throw new Error(Array.isArray(errorMessage) ? JSON.stringify(errorMessage) : errorMessage);
   }
 };
+
 export const connectToDepictFiles = (exerciseType, onFilesReceived, onError) => {
   const token = localStorage.getItem('authToken');
   if (!token) {
@@ -194,7 +224,7 @@ export const connectToDepictFiles = (exerciseType, onFilesReceived, onError) => 
       if (data.error) {
         onError(new Error(data.error));
       } else {
-        onFilesReceived(data.available_files);
+        onFilesReceived(data.available_files || []);
       }
     } catch (error) {
       console.error('Error parsing WebSocket message:', error);
@@ -216,16 +246,24 @@ export const connectToDepictFiles = (exerciseType, onFilesReceived, onError) => 
 
 export const registerUser = async (username, password, role) => {
   try {
-    const response = await api.post("/register/user", { username, password, role });
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
+    formData.append('role', role);
+    
+    const response = await api.post("/register/user", formData);
     return response.data;
   } catch (error) {
     return handleApiError(error);
   }
 };
 
-export const refreshToken = async (refreshToken) => {
+export const refreshToken = async (refreshTokenValue) => {
   try {
-    const response = await api.post("/refresh", { refresh_token: refreshToken });
+    const formData = new FormData();
+    formData.append('refresh_token', refreshTokenValue);
+    
+    const response = await api.post("/refresh", formData);
     if (response.data.access_token) {
       localStorage.setItem("authToken", response.data.access_token);
     }
