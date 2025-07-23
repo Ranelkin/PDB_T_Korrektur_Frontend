@@ -1,9 +1,8 @@
-import React from 'react';
 
 const ExerciseTypeSelector = ({ selectedType, onSelectType }) => {
   const EXERCISE_TYPES = [
     { id: 'ER', name: 'ER Diagram' },
-    { id: 'KEYS', name: 'Keys' }
+    { id: 'FUNCTIONAL', name: 'Functional Dependencies' }
   ];
 
   const containerStyle = {

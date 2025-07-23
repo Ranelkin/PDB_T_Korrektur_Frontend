@@ -18,7 +18,7 @@ const FileUploader = ({ username }) => {
 
   const EXERCISE_TYPES = [
     { id: 'ER', name: 'ER Diagram' },
-    { id: 'KEYS', name: 'Keys' },
+    { id: 'FUNCTIONAL', name: 'Functional Dependencies' },
   ];
 
   useEffect(() => {
