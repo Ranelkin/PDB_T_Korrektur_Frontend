@@ -1,0 +1,122 @@
+{
+  "erDoc": "entity Kunde {\r\n    lieferadresse: [name, adresse] key\r\n}\r\n\r\nentity Fahrer {\r\n    handynummer key\r\n    name\r\n}\r\n\r\nrelation Auslieferung(Fahrer 1!, Kunde N) {\r\n    datum\r\n    uhrzeit\r\n}",
+  "nodes": [
+    {
+      "id": "0",
+      "position": {
+        "x": 702.3586585212206,
+        "y": -167.22242842428847
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": -9,
+        "y": -96
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": -52.5,
+        "y": -191.59999999999997
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": 85.48191672110988,
+        "y": -191.703898488022
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": 485.572056257742,
+        "y": 25.72185280529534
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": -70,
+        "y": 100
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 75.47782761563212,
+        "y": 100
+      }
+    },
+    {
+      "id": "7",
+      "position": {
+        "x": 700,
+        "y": 0
+      }
+    },
+    {
+      "id": "8",
+      "position": {
+        "x": 154.55084807254275,
+        "y": -11.58156263421067
+      }
+    },
+    {
+      "id": "9",
+      "position": {
+        "x": 152.670814694824,
+        "y": 56.73417156775339
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Kunde->lieferadresse",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr-composite: Kunde lieferadresse->name",
+      "source": "1",
+      "target": "2"
+    },
+    {
+      "id": "entity-attr-composite: Kunde lieferadresse->adresse",
+      "source": "1",
+      "target": "3"
+    },
+    {
+      "id": "entity-attr: Fahrer->handynummer",
+      "source": "4",
+      "target": "5"
+    },
+    {
+      "id": "entity-attr: Fahrer->name",
+      "source": "4",
+      "target": "6"
+    },
+    {
+      "id": "relationship-part: Auslieferung$Fahrer$Kunde->Fahrer",
+      "source": "7",
+      "target": "4"
+    },
+    {
+      "id": "relationship-part: Auslieferung$Fahrer$Kunde->Kunde",
+      "source": "7",
+      "target": "0"
+    },
+    {
+      "id": "relationship-attr: Auslieferung$Fahrer$Kunde->datum",
+      "source": "7",
+      "target": "8"
+    },
+    {
+      "id": "relationship-attr: Auslieferung$Fahrer$Kunde->uhrzeit",
+      "source": "7",
+      "target": "9"
+    }
+  ]
+}

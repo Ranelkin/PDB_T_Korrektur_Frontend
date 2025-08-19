@@ -1,0 +1,295 @@
+{
+  "erDoc": "entity Anbieter {\r\nName\r\nAdresse key\r\n}\r\n\r\nrelation bietet_an(Anbieter N, Gericht 1!)\r\n\r\nentity Gericht {\r\nName key\r\nKategorie\r\nPreis\r\n\r\n}\r\n\r\nentity Fahrer {\r\nName key\r\nHandynummer\r\n}\r\n\r\nentity Fortbewegungsmittel {\r\nKennzeichen key\r\nLieferkapazitaet\r\nBeschreibung\r\n}\r\n\r\nrelation verfuegt_ueber(Fahrer, Fortbewegungsmittel)\r\n\r\nentity Kunde {\r\nName key\r\nAdresse}\r\n\r\nrelation bestellt(Kunde 1, Gericht) {\r\nUhrzeit\r\nDatum}\r\n\r\nrelation beliefert (Fahrer 1, Kunde)\r\n\r\nrelation liefert_aus (Fahrer N, Gericht N)\r\n",
+  "nodes": [
+    {
+      "id": "7",
+      "position": {
+        "x": 1078.25453829854,
+        "y": 299.24946058564956
+      }
+    },
+    {
+      "id": "14",
+      "position": {
+        "x": 1276.750299878458,
+        "y": -2.251843793597004
+      }
+    },
+    {
+      "id": "15",
+      "position": {
+        "x": 121.00879141172163,
+        "y": -30.376811874145687
+      }
+    },
+    {
+      "id": "16",
+      "position": {
+        "x": 30.062248000718682,
+        "y": -61.52454320934862
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": 854.6776765634331,
+        "y": -1.5716566510398025
+      }
+    },
+    {
+      "id": "19",
+      "position": {
+        "x": 1066.4181531815877,
+        "y": -28.453601110138607
+      }
+    },
+    {
+      "id": "20",
+      "position": {
+        "x": -38.40959780942194,
+        "y": -91.97909330672337
+      }
+    },
+    {
+      "id": "21",
+      "position": {
+        "x": 34.69137574757269,
+        "y": -95.40936176986611
+      }
+    },
+    {
+      "id": "22",
+      "position": {
+        "x": 1275.4031861093108,
+        "y": 139.82513523984312
+      }
+    },
+    {
+      "id": "0",
+      "position": {
+        "x": 500,
+        "y": 0
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": -41.081512960884766,
+        "y": -63.85855090140642
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": -46.05007982786401,
+        "y": 56.73281836932321
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": 7.944593266675611,
+        "y": -72.05931684566247
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": 60.57782881525873,
+        "y": -72.314331330208
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": -52.22111178656951,
+        "y": -68.2167519612608
+      }
+    },
+    {
+      "id": "8",
+      "position": {
+        "x": 150.99691216972246,
+        "y": 33.18698004171182
+      }
+    },
+    {
+      "id": "9",
+      "position": {
+        "x": 146.3530533901469,
+        "y": -22.341174148147672
+      }
+    },
+    {
+      "id": "10",
+      "position": {
+        "x": 1039.0993402046777,
+        "y": 587.0077484635729
+      }
+    },
+    {
+      "id": "11",
+      "position": {
+        "x": 28.52157682317602,
+        "y": 98.48428343348962
+      }
+    },
+    {
+      "id": "12",
+      "position": {
+        "x": -103.0687265227075,
+        "y": 96.96856686697924
+      }
+    },
+    {
+      "id": "13",
+      "position": {
+        "x": 135.17581235994726,
+        "y": 98.48428343348962
+      }
+    },
+    {
+      "id": "17",
+      "position": {
+        "x": 664.9057006009375,
+        "y": -25.282898197187137
+      }
+    },
+    {
+      "id": "18",
+      "position": {
+        "x": 1074.381675107361,
+        "y": 416.9365130462893
+      }
+    },
+    {
+      "id": "23",
+      "position": {
+        "x": 851.8040078688184,
+        "y": 244.19362248133677
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Kunde->Name",
+      "source": "14",
+      "target": "15"
+    },
+    {
+      "id": "entity-attr: Kunde->Adresse",
+      "source": "14",
+      "target": "16"
+    },
+    {
+      "id": "relationship-attr: bestellt$Gericht$Kunde->Uhrzeit",
+      "source": "19",
+      "target": "20"
+    },
+    {
+      "id": "relationship-attr: bestellt$Gericht$Kunde->Datum",
+      "source": "19",
+      "target": "21"
+    },
+    {
+      "id": "relationship-part: bestellt$Gericht$Kunde->Kunde",
+      "source": "19",
+      "target": "14"
+    },
+    {
+      "id": "relationship-part: bestellt$Gericht$Kunde->Gericht",
+      "source": "19",
+      "target": "3"
+    },
+    {
+      "id": "relationship-part: beliefert$Fahrer$Kunde->Fahrer",
+      "source": "22",
+      "target": "7"
+    },
+    {
+      "id": "relationship-part: beliefert$Fahrer$Kunde->Kunde",
+      "source": "22",
+      "target": "14"
+    },
+    {
+      "id": "entity-attr: Anbieter->Name",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr: Anbieter->Adresse",
+      "source": "0",
+      "target": "2"
+    },
+    {
+      "id": "entity-attr: Gericht->Name",
+      "source": "3",
+      "target": "4"
+    },
+    {
+      "id": "entity-attr: Gericht->Kategorie",
+      "source": "3",
+      "target": "5"
+    },
+    {
+      "id": "entity-attr: Gericht->Preis",
+      "source": "3",
+      "target": "6"
+    },
+    {
+      "id": "entity-attr: Fahrer->Name",
+      "source": "7",
+      "target": "8"
+    },
+    {
+      "id": "entity-attr: Fahrer->Handynummer",
+      "source": "7",
+      "target": "9"
+    },
+    {
+      "id": "entity-attr: Fortbewegungsmittel->Kennzeichen",
+      "source": "10",
+      "target": "11"
+    },
+    {
+      "id": "entity-attr: Fortbewegungsmittel->Lieferkapazitaet",
+      "source": "10",
+      "target": "12"
+    },
+    {
+      "id": "entity-attr: Fortbewegungsmittel->Beschreibung",
+      "source": "10",
+      "target": "13"
+    },
+    {
+      "id": "relationship-part: verfuegt_ueber$Fahrer$Fortbewegungsmittel->Fahrer",
+      "source": "18",
+      "target": "7"
+    },
+    {
+      "id": "relationship-part: verfuegt_ueber$Fahrer$Fortbewegungsmittel->Fortbewegungsmittel",
+      "source": "18",
+      "target": "10"
+    },
+    {
+      "id": "relationship-part: liefert_aus$Fahrer$Gericht->Fahrer",
+      "source": "23",
+      "target": "7"
+    },
+    {
+      "id": "relationship-part: liefert_aus$Fahrer$Gericht->Gericht",
+      "source": "23",
+      "target": "3"
+    },
+    {
+      "id": "relationship-part: bietet_an$Anbieter$Gericht->Anbieter",
+      "source": "17",
+      "target": "0"
+    },
+    {
+      "id": "relationship-part: bietet_an$Anbieter$Gericht->Gericht",
+      "source": "17",
+      "target": "3"
+    }
+  ]
+}

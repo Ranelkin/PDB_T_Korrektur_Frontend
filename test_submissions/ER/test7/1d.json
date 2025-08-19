@@ -1,0 +1,242 @@
+{
+  "erDoc": "entity Kunde{\r\n Lieferadresse: [Name_an_der_Klingel, Adresse]\r\n Kundennummer key\r\n}\r\n\r\nentity Bestellung{\r\n Datum\r\n Uhrzeit\r\n Bestellnr key\r\n}\r\n\r\nentity Fahrer{\r\n Name\r\n Handynummer\r\n Fahrer_id key\r\n}\r\n\r\nentity Gerichte{\r\n Nr key\r\n Name\r\n Kategorie\r\n Preis\r\n}\r\n\r\nrelation bestellt (Kunde 1!, Bestellung N, Gerichte)\r\nrelation liefert (Bestellung , Fahrer 1!)",
+  "nodes": [
+    {
+      "id": "0",
+      "position": {
+        "x": 846.9027207051695,
+        "y": 856.6324979633346
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": -91.05630098839882,
+        "y": 155.75520014133232
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": 29.332597721276443,
+        "y": 343.78625756888493
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": -329.71329029111337,
+        "y": -96.34934795337904
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": 59.05630098839873,
+        "y": -155.75520014133238
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": 581.1629895926931,
+        "y": 318.3549362134472
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 69.2033291940667,
+        "y": 85.66904801328988
+      }
+    },
+    {
+      "id": "7",
+      "position": {
+        "x": -89.96504145211864,
+        "y": 14.242379124284213
+      }
+    },
+    {
+      "id": "8",
+      "position": {
+        "x": 50.2492980844456,
+        "y": -92.64987273125811
+      }
+    },
+    {
+      "id": "9",
+      "position": {
+        "x": 209.1286923672192,
+        "y": 171.6292282931135
+      }
+    },
+    {
+      "id": "10",
+      "position": {
+        "x": 108.40343412640354,
+        "y": 93.03840636676983
+      }
+    },
+    {
+      "id": "11",
+      "position": {
+        "x": -147.1286923672192,
+        "y": 25.892124578042086
+      }
+    },
+    {
+      "id": "12",
+      "position": {
+        "x": 77.36089834179111,
+        "y": -109.6292282931135
+      }
+    },
+    {
+      "id": "19",
+      "position": {
+        "x": 328.34223732934333,
+        "y": 380.93299857373955
+      }
+    },
+    {
+      "id": "13",
+      "position": {
+        "x": 271.6628539771971,
+        "y": 631.1957262185174
+      }
+    },
+    {
+      "id": "14",
+      "position": {
+        "x": 89.57555456221607,
+        "y": 66.23810581333025
+      }
+    },
+    {
+      "id": "15",
+      "position": {
+        "x": -43.12976508590313,
+        "y": 81.41136392509107
+      }
+    },
+    {
+      "id": "16",
+      "position": {
+        "x": -72.54197665830027,
+        "y": -66.83401598386645
+      }
+    },
+    {
+      "id": "17",
+      "position": {
+        "x": 89.5755545622161,
+        "y": -66.23810581333022
+      }
+    },
+    {
+      "id": "18",
+      "position": {
+        "x": 484.0789145001835,
+        "y": 527.195195563782
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Kunde->Lieferadresse",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr-composite: Kunde Lieferadresse->Name_an_der_Klingel",
+      "source": "1",
+      "target": "2"
+    },
+    {
+      "id": "entity-attr-composite: Kunde Lieferadresse->Adresse",
+      "source": "1",
+      "target": "3"
+    },
+    {
+      "id": "entity-attr: Kunde->Kundennummer",
+      "source": "0",
+      "target": "4"
+    },
+    {
+      "id": "entity-attr: Bestellung->Datum",
+      "source": "5",
+      "target": "6"
+    },
+    {
+      "id": "entity-attr: Bestellung->Uhrzeit",
+      "source": "5",
+      "target": "7"
+    },
+    {
+      "id": "entity-attr: Bestellung->Bestellnr",
+      "source": "5",
+      "target": "8"
+    },
+    {
+      "id": "entity-attr: Fahrer->Name",
+      "source": "9",
+      "target": "10"
+    },
+    {
+      "id": "entity-attr: Fahrer->Handynummer",
+      "source": "9",
+      "target": "11"
+    },
+    {
+      "id": "entity-attr: Fahrer->Fahrer_id",
+      "source": "9",
+      "target": "12"
+    },
+    {
+      "id": "relationship-part: liefert$Bestellung$Fahrer->Bestellung",
+      "source": "19",
+      "target": "5"
+    },
+    {
+      "id": "relationship-part: liefert$Bestellung$Fahrer->Fahrer",
+      "source": "19",
+      "target": "9"
+    },
+    {
+      "id": "entity-attr: Gerichte->Nr",
+      "source": "13",
+      "target": "14"
+    },
+    {
+      "id": "entity-attr: Gerichte->Name",
+      "source": "13",
+      "target": "15"
+    },
+    {
+      "id": "entity-attr: Gerichte->Kategorie",
+      "source": "13",
+      "target": "16"
+    },
+    {
+      "id": "entity-attr: Gerichte->Preis",
+      "source": "13",
+      "target": "17"
+    },
+    {
+      "id": "relationship-part: bestellt$Bestellung$Gerichte$Kunde->Kunde",
+      "source": "18",
+      "target": "0"
+    },
+    {
+      "id": "relationship-part: bestellt$Bestellung$Gerichte$Kunde->Bestellung",
+      "source": "18",
+      "target": "5"
+    },
+    {
+      "id": "relationship-part: bestellt$Bestellung$Gerichte$Kunde->Gerichte",
+      "source": "18",
+      "target": "13"
+    }
+  ]
+}

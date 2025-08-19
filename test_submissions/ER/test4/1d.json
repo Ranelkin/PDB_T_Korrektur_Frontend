@@ -1,0 +1,170 @@
+{
+  "erDoc": "entity Fahrer {\r\n    Name\r\n    Handynummer key\r\n}\r\n\r\nentity Gericht {\r\n    Name key\r\n    Preis key\r\n    Kategorie\r\n}\r\n\r\nentity Bestellung {\r\n    Datum key\r\n    Uhrzeit key\r\n    Gesamtpreis key\r\n    Lieferadresse key\r\n}\r\n\r\nrelation beinhaltet(Bestellung N!, Gericht M)\r\n\r\nrelation liefert_aus(Bestellung 1!, Fahrer N!)",
+  "nodes": [
+    {
+      "id": "0",
+      "position": {
+        "x": 253.74353263497585,
+        "y": 138.47023467854623
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": -36.67177889286086,
+        "y": -65.35414203426129
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": 39.753328377627554,
+        "y": -66.41218769084384
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": 834.3082665154056,
+        "y": 116.65711956956582
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": 26.525964254152427,
+        "y": 67.75202259084531
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": -47.55840359980402,
+        "y": -61.410930931123346
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 16.502741323262626,
+        "y": -64.19454506828696
+      }
+    },
+    {
+      "id": "7",
+      "position": {
+        "x": 571.5194923103286,
+        "y": 394.9978829007777
+      }
+    },
+    {
+      "id": "8",
+      "position": {
+        "x": 143.69932934875555,
+        "y": 52.91524848757217
+      }
+    },
+    {
+      "id": "9",
+      "position": {
+        "x": -94.49561690840318,
+        "y": 45.41948036038099
+      }
+    },
+    {
+      "id": "10",
+      "position": {
+        "x": -44.749985068076285,
+        "y": 100.21550342230569
+      }
+    },
+    {
+      "id": "12",
+      "position": {
+        "x": 721.9277819740482,
+        "y": 231.8197818673621
+      }
+    },
+    {
+      "id": "13",
+      "position": {
+        "x": 422.0981642844122,
+        "y": 221.02736226374108
+      }
+    },
+    {
+      "id": "11",
+      "position": {
+        "x": 70.48719357850746,
+        "y": 109.11643362904817
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Fahrer->Name",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr: Fahrer->Handynummer",
+      "source": "0",
+      "target": "2"
+    },
+    {
+      "id": "entity-attr: Gericht->Name",
+      "source": "3",
+      "target": "4"
+    },
+    {
+      "id": "entity-attr: Gericht->Preis",
+      "source": "3",
+      "target": "5"
+    },
+    {
+      "id": "entity-attr: Gericht->Kategorie",
+      "source": "3",
+      "target": "6"
+    },
+    {
+      "id": "entity-attr: Bestellung->Datum",
+      "source": "7",
+      "target": "8"
+    },
+    {
+      "id": "entity-attr: Bestellung->Uhrzeit",
+      "source": "7",
+      "target": "9"
+    },
+    {
+      "id": "entity-attr: Bestellung->Gesamtpreis",
+      "source": "7",
+      "target": "10"
+    },
+    {
+      "id": "relationship-part: beinhaltet$Bestellung$Gericht->Bestellung",
+      "source": "12",
+      "target": "7"
+    },
+    {
+      "id": "relationship-part: beinhaltet$Bestellung$Gericht->Gericht",
+      "source": "12",
+      "target": "3"
+    },
+    {
+      "id": "entity-attr: Bestellung->Lieferadresse",
+      "source": "7",
+      "target": "11"
+    },
+    {
+      "id": "relationship-part: liefert_aus$Bestellung$Fahrer->Bestellung",
+      "source": "13",
+      "target": "7"
+    },
+    {
+      "id": "relationship-part: liefert_aus$Bestellung$Fahrer->Fahrer",
+      "source": "13",
+      "target": "0"
+    }
+  ]
+}

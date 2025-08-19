@@ -1,0 +1,98 @@
+{
+  "erDoc": "entity Speisekarten{\r\nSk_id key\r\n}\r\n\r\nentity Gerichte {\r\n Name \r\n Preis\r\n Kategorie\r\n Nr key\r\n}\r\n\r\nrelation beinhaltet (Speisekarten 1!, Gerichte M!)\r\n\r\n\r\n",
+  "nodes": [
+    {
+      "id": "2",
+      "position": {
+        "x": 338.3736414959641,
+        "y": 128.83401598386644
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": 89.57555456221607,
+        "y": 66.23810581333025
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": -43.12976508590313,
+        "y": 81.41136392509107
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": -72.54197665830027,
+        "y": -66.83401598386645
+      }
+    },
+    {
+      "id": "0",
+      "position": {
+        "x": 84.02730261290037,
+        "y": 218.94309624263278
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": -22.02730261290037,
+        "y": 107.5416668625124
+      }
+    },
+    {
+      "id": "7",
+      "position": {
+        "x": 247.43234810696686,
+        "y": 328.2489054296676
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 89.5755545622161,
+        "y": -66.23810581333022
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Gerichte->Preis",
+      "source": "2",
+      "target": "4"
+    },
+    {
+      "id": "entity-attr: Gerichte->Name",
+      "source": "2",
+      "target": "3"
+    },
+    {
+      "id": "entity-attr: Gerichte->Kategorie",
+      "source": "2",
+      "target": "5"
+    },
+    {
+      "id": "entity-attr: Gerichte->Nr",
+      "source": "2",
+      "target": "6"
+    },
+    {
+      "id": "entity-attr: Speisekarten->Sk_id",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "relationship-part: beinhaltet$Gerichte$Speisekarten->Speisekarten",
+      "source": "7",
+      "target": "0"
+    },
+    {
+      "id": "relationship-part: beinhaltet$Gerichte$Speisekarten->Gerichte",
+      "source": "7",
+      "target": "2"
+    }
+  ]
+}

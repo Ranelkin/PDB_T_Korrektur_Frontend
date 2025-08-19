@@ -1,0 +1,134 @@
+{
+  "erDoc": "entity Anbieter {\r\n    adresse key\r\n    name\r\n    speisekarte : [name, kategorie, preis]\r\n}\r\n\r\nentity Restaurant extends Anbieter {}\r\nentity Imbisse extends Anbieter {}",
+  "nodes": [
+    {
+      "id": "0",
+      "position": {
+        "x": 500,
+        "y": 0
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": 8.728625954198492,
+        "y": -121.33301526717563
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": -64.39484732824428,
+        "y": -120.70954198473285
+      }
+    },
+    {
+      "id": "7",
+      "position": {
+        "x": 419.0009425511597,
+        "y": 188.01741019432183
+      }
+    },
+    {
+      "id": "8",
+      "position": {
+        "x": 417.8546888481868,
+        "y": 73.56323702667365
+      }
+    },
+    {
+      "id": "9",
+      "position": {
+        "x": 571.2309887257009,
+        "y": 187.9595906501997
+      }
+    },
+    {
+      "id": "10",
+      "position": {
+        "x": 567.6124729434077,
+        "y": 73.30596089553303
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": 100,
+        "y": -121
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": 33,
+        "y": -220.39999999999992
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": 106,
+        "y": -220.5
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 206.33826598138444,
+        "y": -220.55955078947008
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Anbieter->adresse",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr: Anbieter->name",
+      "source": "0",
+      "target": "2"
+    },
+    {
+      "id": "isA: entity: Restaurant|entity: Anbieter",
+      "source": "8",
+      "target": "7"
+    },
+    {
+      "id": "isA: entity: Anbieter|entity: Restaurant",
+      "source": "0",
+      "target": "8"
+    },
+    {
+      "id": "isA: entity: Imbisse|entity: Anbieter",
+      "source": "10",
+      "target": "9"
+    },
+    {
+      "id": "isA: entity: Anbieter|entity: Imbisse",
+      "source": "0",
+      "target": "10"
+    },
+    {
+      "id": "entity-attr: Anbieter->speisekarte",
+      "source": "0",
+      "target": "3"
+    },
+    {
+      "id": "entity-attr-composite: Anbieter speisekarte->name",
+      "source": "3",
+      "target": "4"
+    },
+    {
+      "id": "entity-attr-composite: Anbieter speisekarte->kategorie",
+      "source": "3",
+      "target": "5"
+    },
+    {
+      "id": "entity-attr-composite: Anbieter speisekarte->preis",
+      "source": "3",
+      "target": "6"
+    }
+  ]
+}

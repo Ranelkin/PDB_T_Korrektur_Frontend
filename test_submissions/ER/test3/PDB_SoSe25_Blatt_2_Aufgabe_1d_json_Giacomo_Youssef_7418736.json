@@ -1,0 +1,134 @@
+{
+  "erDoc": "entity Bestellung {\r\n    bestell_id key\r\n    Datum\r\n    Uhrzeit\r\n    Lieferaddresse :[Name_an_Klingel, Addresse]\r\n}\r\n\r\nentity Fahrer {\r\n    fahrer_id key\r\n    Name\r\n}\r\n\r\nrelation liefert (Fahrer 1, Bestellung 1)",
+  "nodes": [
+    {
+      "id": "0",
+      "position": {
+        "x": 500,
+        "y": 0
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": -104.61361065005451,
+        "y": 2.085327636075334
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": -78.73927422122335,
+        "y": 71.90470802868573
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": -12.174353849763634,
+        "y": 96.56492037145975
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": 103.61465494299227,
+        "y": 36.06387607852207
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": 70.55077886446998,
+        "y": 104.06492037145972
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 243.43978765722613,
+        "y": 89.11465494299219
+      }
+    },
+    {
+      "id": "7",
+      "position": {
+        "x": 625.6668915860023,
+        "y": -271.06165896840787
+      }
+    },
+    {
+      "id": "8",
+      "position": {
+        "x": 97.56932577507791,
+        "y": 3.0341516540030398
+      }
+    },
+    {
+      "id": "9",
+      "position": {
+        "x": 94.83140875402603,
+        "y": 65.98798103235583
+      }
+    },
+    {
+      "id": "10",
+      "position": {
+        "x": 568.8892723015078,
+        "y": -150.74228050896141
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Bestellung->bestell_id",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr: Bestellung->Datum",
+      "source": "0",
+      "target": "2"
+    },
+    {
+      "id": "entity-attr: Bestellung->Uhrzeit",
+      "source": "0",
+      "target": "3"
+    },
+    {
+      "id": "entity-attr: Bestellung->Lieferaddresse",
+      "source": "0",
+      "target": "4"
+    },
+    {
+      "id": "entity-attr-composite: Bestellung Lieferaddresse->Name_an_Klingel",
+      "source": "4",
+      "target": "5"
+    },
+    {
+      "id": "entity-attr-composite: Bestellung Lieferaddresse->Addresse",
+      "source": "4",
+      "target": "6"
+    },
+    {
+      "id": "entity-attr: Fahrer->fahrer_id",
+      "source": "7",
+      "target": "8"
+    },
+    {
+      "id": "entity-attr: Fahrer->Name",
+      "source": "7",
+      "target": "9"
+    },
+    {
+      "id": "relationship-part: liefert$Bestellung$Fahrer->Fahrer",
+      "source": "10",
+      "target": "7"
+    },
+    {
+      "id": "relationship-part: liefert$Bestellung$Fahrer->Bestellung",
+      "source": "10",
+      "target": "0"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "erDoc": "entity Fahrer{\r\nName\r\nHandynummer\r\nFahrer_id key\r\n}\r\n\r\n\r\nentity Fortbewegungsmittel depends on liefert_mit{\r\nAnzahl_Gerichte pkey\r\nBeschreibung\r\n}\r\n\r\nrelation liefert_mit (Fahrer 1!, Fortbewegungsmittel 1!)",
+  "nodes": [
+    {
+      "id": "0",
+      "position": {
+        "x": 211.68375552997412,
+        "y": 453.6101610997645
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": 103.1766905237024,
+        "y": 98.03287488268165
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": -149.68375552997412,
+        "y": -1.2061401212277048
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": 563.7156718447104,
+        "y": 240.51873736933817
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": 2.9209998527406356,
+        "y": 185.51873736933823
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 49.079000147259464,
+        "y": -178.51873736933823
+      }
+    },
+    {
+      "id": "7",
+      "position": {
+        "x": 450.3117510697658,
+        "y": 484.81111174941293
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": 104.56748468527354,
+        "y": -97.21967746888122
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Fahrer->Name",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr: Fahrer->Handynummer",
+      "source": "0",
+      "target": "2"
+    },
+    {
+      "id": "entity-attr: Fortbewegungsmittel->Anzahl_Gerichte",
+      "source": "4",
+      "target": "5"
+    },
+    {
+      "id": "entity-attr: Fortbewegungsmittel->Beschreibung",
+      "source": "4",
+      "target": "6"
+    },
+    {
+      "id": "relationship-part: liefert_mit$Fahrer$Fortbewegungsmittel->Fahrer",
+      "source": "7",
+      "target": "0"
+    },
+    {
+      "id": "relationship-part: liefert_mit$Fahrer$Fortbewegungsmittel->Fortbewegungsmittel",
+      "source": "7",
+      "target": "4"
+    },
+    {
+      "id": "entity-attr: Fahrer->Fahrer_id",
+      "source": "0",
+      "target": "3"
+    }
+  ]
+}

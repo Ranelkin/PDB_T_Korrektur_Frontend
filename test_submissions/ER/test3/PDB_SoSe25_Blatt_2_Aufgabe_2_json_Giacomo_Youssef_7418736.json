@@ -1,0 +1,566 @@
+{
+  "erDoc": "entity Anbieter {\r\n    Name key\r\n    Addresse key\r\n}\r\n\r\nentity Restaurant extends Anbieter{}\r\nentity Imbiss extends Anbieter{}\r\n\r\nentity Lieferdienst {\r\n    Name key\r\n    Anschrift key\r\n}\r\n\r\nrelation registriert (Anbieter N!, Lieferdienst 1!)\r\n\r\nentity Fahrer {\r\n    Name : [Vorname, Nachname]\r\n    Handynummer key\r\n}\r\n\r\nrelation beschaeftigt (Fahrer N!, Lieferdienst M!)\r\n\r\nentity Fortbewegungsmittel {\r\n    produktnummer key\r\n    hertellnummer key\r\n    Marke\r\n    Beschreibung\r\n    Lieferkapazitaet\r\n    Geschwindigkeit\r\n\r\n}\r\n\r\nentity Auto extends Fortbewegungsmittel{}\r\nentity Fahrrad extends Fortbewegungsmittel{}\r\nentity Motorroller extends Fortbewegungsmittel{}\r\n\r\n\r\nrelation faehrt (Fahrer 1!, Fortbewegungsmittel 1!)\r\n\r\nentity Gericht {\r\n    Name key\r\n    Preis key\r\n    Kategorie\r\n}\r\n\r\nentity Speisekarte depends on ist_in{\r\n    Name pkey\r\n}\r\n\r\nrelation ist_in (Gericht N!, Speisekarte 1!)\r\n\r\nrelation besitzt (Speisekarte 1!, Anbieter 1!)\r\n\r\nentity Bestellung {\r\n    bestell_id key\r\n    Datum\r\n    Uhrzeit\r\n    Lieferaddresse : [Name_an_Klingel, Addresse]\r\n}\r\n\r\nrelation liefert (Bestellung 1!, Fahrer 1!)\r\n\r\n\r\n",
+  "nodes": [
+    {
+      "id": "0",
+      "position": {
+        "x": 1353.2389046101898,
+        "y": 172.0715068074863
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": 32.69284344211147,
+        "y": 98.07150680748623
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": -15.19284344211146,
+        "y": -98.07150680748624
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": 1323.341290129486,
+        "y": 429.1430136149725
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": 1322.341290129486,
+        "y": 345.1430136149725
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": 1441.341290129486,
+        "y": 429.1430136149725
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 1438.341290129486,
+        "y": 345.1430136149725
+      }
+    },
+    {
+      "id": "7",
+      "position": {
+        "x": 1504.0510899772703,
+        "y": 788.357942454776
+      }
+    },
+    {
+      "id": "8",
+      "position": {
+        "x": 38.429580164334,
+        "y": 108.2143732364901
+      }
+    },
+    {
+      "id": "41",
+      "position": {
+        "x": 1387.0565783005854,
+        "y": 550.0021302644541
+      }
+    },
+    {
+      "id": "9",
+      "position": {
+        "x": -8.929580164334055,
+        "y": -108.2143732364901
+      }
+    },
+    {
+      "id": "10",
+      "position": {
+        "x": 1083.4524043316926,
+        "y": 1156.125362849625
+      }
+    },
+    {
+      "id": "11",
+      "position": {
+        "x": -25.668819875666316,
+        "y": 125.93834169861168
+      }
+    },
+    {
+      "id": "12",
+      "position": {
+        "x": 171.63629651565822,
+        "y": 204.43598531206374
+      }
+    },
+    {
+      "id": "13",
+      "position": {
+        "x": -248.20892975718453,
+        "y": 97.58648388777502
+      }
+    },
+    {
+      "id": "14",
+      "position": {
+        "x": 22.668819875666316,
+        "y": -125.93834169861168
+      }
+    },
+    {
+      "id": "42",
+      "position": {
+        "x": 1416.485845842764,
+        "y": 989.720222949164
+      }
+    },
+    {
+      "id": "15",
+      "position": {
+        "x": 480.0467992218001,
+        "y": 1725.561279293638
+      }
+    },
+    {
+      "id": "17",
+      "position": {
+        "x": 173.40859518539452,
+        "y": 90.97479370430858
+      }
+    },
+    {
+      "id": "16",
+      "position": {
+        "x": -2.3109378893909707,
+        "y": 174.23124501633652
+      }
+    },
+    {
+      "id": "18",
+      "position": {
+        "x": -97.24880636154359,
+        "y": 90.41181442118818
+      }
+    },
+    {
+      "id": "19",
+      "position": {
+        "x": -140.2777134647303,
+        "y": -50.98665378848514
+      }
+    },
+    {
+      "id": "20",
+      "position": {
+        "x": -12.87828037509513,
+        "y": -172.2440671825205
+      }
+    },
+    {
+      "id": "21",
+      "position": {
+        "x": 162.9049986045714,
+        "y": -98.01217465603231
+      }
+    },
+    {
+      "id": "43",
+      "position": {
+        "x": 926.4577398245074,
+        "y": 1570.6584411836152
+      }
+    },
+    {
+      "id": "22",
+      "position": {
+        "x": 514.3147637743953,
+        "y": 2058.7925243099744
+      }
+    },
+    {
+      "id": "23",
+      "position": {
+        "x": 511.3147637743952,
+        "y": 1974.7925243099746
+      }
+    },
+    {
+      "id": "24",
+      "position": {
+        "x": 630.3147637743953,
+        "y": 2058.7925243099744
+      }
+    },
+    {
+      "id": "25",
+      "position": {
+        "x": 627.3147637743953,
+        "y": 1974.7925243099746
+      }
+    },
+    {
+      "id": "26",
+      "position": {
+        "x": 393.3147637743952,
+        "y": 2058.7925243099744
+      }
+    },
+    {
+      "id": "27",
+      "position": {
+        "x": 395.3147637743952,
+        "y": 1974.7925243099746
+      }
+    },
+    {
+      "id": "28",
+      "position": {
+        "x": 1036.8880902934168,
+        "y": 573.4116308523882
+      }
+    },
+    {
+      "id": "29",
+      "position": {
+        "x": 72.10813239939341,
+        "y": 81.42667303441763
+      }
+    },
+    {
+      "id": "30",
+      "position": {
+        "x": -80.66967732592946,
+        "y": 28.21901558085503
+      }
+    },
+    {
+      "id": "31",
+      "position": {
+        "x": 33.717969668732465,
+        "y": -94.39810607435211
+      }
+    },
+    {
+      "id": "32",
+      "position": {
+        "x": 888.86059103395,
+        "y": 138.47403475278296
+      }
+    },
+    {
+      "id": "33",
+      "position": {
+        "x": -26.33027823945841,
+        "y": 110.04390610005377
+      }
+    },
+    {
+      "id": "44",
+      "position": {
+        "x": 841.9085835516627,
+        "y": 362.7772585432239
+      }
+    },
+    {
+      "id": "45",
+      "position": {
+        "x": 1071.8931323458703,
+        "y": 104.04267129715151
+      }
+    },
+    {
+      "id": "34",
+      "position": {
+        "x": 237.19307628347715,
+        "y": 1061.2324289622688
+      }
+    },
+    {
+      "id": "35",
+      "position": {
+        "x": 124.78208835132673,
+        "y": 82.82926495805879
+      }
+    },
+    {
+      "id": "36",
+      "position": {
+        "x": -6.539399381617471,
+        "y": 145.14548519263576
+      }
+    },
+    {
+      "id": "37",
+      "position": {
+        "x": -122.45312311393414,
+        "y": 59.20777658401977
+      }
+    },
+    {
+      "id": "38",
+      "position": {
+        "x": -6.517168817190253,
+        "y": -146.26348566026167
+      }
+    },
+    {
+      "id": "39",
+      "position": {
+        "x": -175.1930762834771,
+        "y": -250.56977193519413
+      }
+    },
+    {
+      "id": "40",
+      "position": {
+        "x": 246.99202861685515,
+        "y": -164.2973403840801
+      }
+    },
+    {
+      "id": "46",
+      "position": {
+        "x": 698.5187372337352,
+        "y": 929.7064764607402
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Anbieter->Name",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr: Anbieter->Addresse",
+      "source": "0",
+      "target": "2"
+    },
+    {
+      "id": "isA: entity: Restaurant|entity: Anbieter",
+      "source": "4",
+      "target": "3"
+    },
+    {
+      "id": "isA: entity: Anbieter|entity: Restaurant",
+      "source": "0",
+      "target": "4"
+    },
+    {
+      "id": "isA: entity: Imbiss|entity: Anbieter",
+      "source": "6",
+      "target": "5"
+    },
+    {
+      "id": "isA: entity: Anbieter|entity: Imbiss",
+      "source": "0",
+      "target": "6"
+    },
+    {
+      "id": "entity-attr: Lieferdienst->Name",
+      "source": "7",
+      "target": "8"
+    },
+    {
+      "id": "relationship-part: registriert$Anbieter$Lieferdienst->Anbieter",
+      "source": "41",
+      "target": "0"
+    },
+    {
+      "id": "relationship-part: registriert$Anbieter$Lieferdienst->Lieferdienst",
+      "source": "41",
+      "target": "7"
+    },
+    {
+      "id": "entity-attr: Lieferdienst->Anschrift",
+      "source": "7",
+      "target": "9"
+    },
+    {
+      "id": "entity-attr: Fahrer->Name",
+      "source": "10",
+      "target": "11"
+    },
+    {
+      "id": "entity-attr-composite: Fahrer Name->Vorname",
+      "source": "11",
+      "target": "12"
+    },
+    {
+      "id": "entity-attr-composite: Fahrer Name->Nachname",
+      "source": "11",
+      "target": "13"
+    },
+    {
+      "id": "entity-attr: Fahrer->Handynummer",
+      "source": "10",
+      "target": "14"
+    },
+    {
+      "id": "relationship-part: beschaeftigt$Fahrer$Lieferdienst->Fahrer",
+      "source": "42",
+      "target": "10"
+    },
+    {
+      "id": "relationship-part: beschaeftigt$Fahrer$Lieferdienst->Lieferdienst",
+      "source": "42",
+      "target": "7"
+    },
+    {
+      "id": "entity-attr: Fortbewegungsmittel->hertellnummer",
+      "source": "15",
+      "target": "17"
+    },
+    {
+      "id": "entity-attr: Fortbewegungsmittel->produktnummer",
+      "source": "15",
+      "target": "16"
+    },
+    {
+      "id": "entity-attr: Fortbewegungsmittel->Marke",
+      "source": "15",
+      "target": "18"
+    },
+    {
+      "id": "entity-attr: Fortbewegungsmittel->Beschreibung",
+      "source": "15",
+      "target": "19"
+    },
+    {
+      "id": "entity-attr: Fortbewegungsmittel->Lieferkapazitaet",
+      "source": "15",
+      "target": "20"
+    },
+    {
+      "id": "entity-attr: Fortbewegungsmittel->Geschwindigkeit",
+      "source": "15",
+      "target": "21"
+    },
+    {
+      "id": "relationship-part: faehrt$Fahrer$Fortbewegungsmittel->Fahrer",
+      "source": "43",
+      "target": "10"
+    },
+    {
+      "id": "relationship-part: faehrt$Fahrer$Fortbewegungsmittel->Fortbewegungsmittel",
+      "source": "43",
+      "target": "15"
+    },
+    {
+      "id": "isA: entity: Auto|entity: Fortbewegungsmittel",
+      "source": "23",
+      "target": "22"
+    },
+    {
+      "id": "isA: entity: Fortbewegungsmittel|entity: Auto",
+      "source": "15",
+      "target": "23"
+    },
+    {
+      "id": "isA: entity: Fahrrad|entity: Fortbewegungsmittel",
+      "source": "25",
+      "target": "24"
+    },
+    {
+      "id": "isA: entity: Fortbewegungsmittel|entity: Fahrrad",
+      "source": "15",
+      "target": "25"
+    },
+    {
+      "id": "isA: entity: Motorroller|entity: Fortbewegungsmittel",
+      "source": "27",
+      "target": "26"
+    },
+    {
+      "id": "isA: entity: Fortbewegungsmittel|entity: Motorroller",
+      "source": "15",
+      "target": "27"
+    },
+    {
+      "id": "entity-attr: Gericht->Name",
+      "source": "28",
+      "target": "29"
+    },
+    {
+      "id": "entity-attr: Gericht->Preis",
+      "source": "28",
+      "target": "30"
+    },
+    {
+      "id": "entity-attr: Gericht->Kategorie",
+      "source": "28",
+      "target": "31"
+    },
+    {
+      "id": "entity-attr: Speisekarte->Name",
+      "source": "32",
+      "target": "33"
+    },
+    {
+      "id": "relationship-part: ist_in$Gericht$Speisekarte->Gericht",
+      "source": "44",
+      "target": "28"
+    },
+    {
+      "id": "relationship-part: ist_in$Gericht$Speisekarte->Speisekarte",
+      "source": "44",
+      "target": "32"
+    },
+    {
+      "id": "relationship-part: besitzt$Anbieter$Speisekarte->Speisekarte",
+      "source": "45",
+      "target": "32"
+    },
+    {
+      "id": "relationship-part: besitzt$Anbieter$Speisekarte->Anbieter",
+      "source": "45",
+      "target": "0"
+    },
+    {
+      "id": "entity-attr: Bestellung->bestell_id",
+      "source": "34",
+      "target": "35"
+    },
+    {
+      "id": "entity-attr: Bestellung->Datum",
+      "source": "34",
+      "target": "36"
+    },
+    {
+      "id": "entity-attr: Bestellung->Uhrzeit",
+      "source": "34",
+      "target": "37"
+    },
+    {
+      "id": "entity-attr: Bestellung->Lieferaddresse",
+      "source": "34",
+      "target": "38"
+    },
+    {
+      "id": "entity-attr-composite: Bestellung Lieferaddresse->Name_an_Klingel",
+      "source": "38",
+      "target": "39"
+    },
+    {
+      "id": "entity-attr-composite: Bestellung Lieferaddresse->Addresse",
+      "source": "38",
+      "target": "40"
+    },
+    {
+      "id": "relationship-part: liefert$Bestellung$Fahrer->Bestellung",
+      "source": "46",
+      "target": "34"
+    },
+    {
+      "id": "relationship-part: liefert$Bestellung$Fahrer->Fahrer",
+      "source": "46",
+      "target": "10"
+    }
+  ]
+}

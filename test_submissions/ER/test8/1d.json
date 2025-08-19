@@ -1,0 +1,302 @@
+{
+  "erDoc": "entity Kunde {\r\n  KundeID key\r\n  NameKlingel\r\n  Adresse\r\n}\r\n\r\nentity Bestellung {\r\n  BestellungID key\r\n  Datum\r\n  Uhrzeit\r\n}\r\n\r\nentity Bestellungsposition {\r\n  PositionID key\r\n  Menge\r\n  GerichtName\r\n}\r\n\r\nentity Fahrer {\r\n  FahrerID key\r\n  Name\r\n  Handynummer\r\n}\r\n\r\nentity Gericht {\r\n  GerichtID key\r\n  Name\r\n  Kategorie\r\n  Preis\r\n}\r\n\r\nrelation wird_erfasst(Bestellung, Kunde) {}\r\n\r\nrelation wird_zugeordnet(Bestellung, Fahrer) {}\r\n\r\nrelation gehoert_zu(Bestellungsposition, Bestellung) {}\r\n\r\nrelation beschreibt(Bestellungsposition, Gericht) {}\r\n",
+  "nodes": [
+    {
+      "id": "12",
+      "position": {
+        "x": 729.4104292708225,
+        "y": 427.85488440823707
+      }
+    },
+    {
+      "id": "15",
+      "position": {
+        "x": 130.85539804643827,
+        "y": 101.08924186590235
+      }
+    },
+    {
+      "id": "14",
+      "position": {
+        "x": 13.36116684070521,
+        "y": 106.68058342035243
+      }
+    },
+    {
+      "id": "0",
+      "position": {
+        "x": 259.17748036991134,
+        "y": -10.865133787450347
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": -75.65063291139234,
+        "y": 91.52405063291138
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": 64.9822784810126,
+        "y": 97.1746835443038
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": 733.5594936708858,
+        "y": -4.450632911392397
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 7.534177215189857,
+        "y": 113.18481012658228
+      }
+    },
+    {
+      "id": "7",
+      "position": {
+        "x": 140.72578804542923,
+        "y": 118.065329304236
+      }
+    },
+    {
+      "id": "8",
+      "position": {
+        "x": 1095.3067833485095,
+        "y": -2.4364267931798764
+      }
+    },
+    {
+      "id": "9",
+      "position": {
+        "x": -78.65932279815047,
+        "y": 110.51711865516754
+      }
+    },
+    {
+      "id": "10",
+      "position": {
+        "x": 146.20153898569833,
+        "y": 107.49751481977944
+      }
+    },
+    {
+      "id": "11",
+      "position": {
+        "x": 20.368815105469594,
+        "y": -111.47200520278135
+      }
+    },
+    {
+      "id": "16",
+      "position": {
+        "x": 1142.2871028944353,
+        "y": 312.59526524178943
+      }
+    },
+    {
+      "id": "19",
+      "position": {
+        "x": -38.788226921474006,
+        "y": 158.73390163201537
+      }
+    },
+    {
+      "id": "20",
+      "position": {
+        "x": 168.66283705128944,
+        "y": 154.3724883525379
+      }
+    },
+    {
+      "id": "21",
+      "position": {
+        "x": 472.4906088804303,
+        "y": -34.73558243402174
+      }
+    },
+    {
+      "id": "22",
+      "position": {
+        "x": 728.8137982666422,
+        "y": 245.027331353246
+      }
+    },
+    {
+      "id": "23",
+      "position": {
+        "x": 901.7225524833816,
+        "y": -27.416692730337772
+      }
+    },
+    {
+      "id": "24",
+      "position": {
+        "x": 1133.6834152443212,
+        "y": 144.18907317021737
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": -2.0807352264157544,
+        "y": -94.85034976028231
+      }
+    },
+    {
+      "id": "13",
+      "position": {
+        "x": -161.30130674481802,
+        "y": 108.90744456046997
+      }
+    },
+    {
+      "id": "17",
+      "position": {
+        "x": -144.59984819393662,
+        "y": 155.6715285029378
+      }
+    },
+    {
+      "id": "18",
+      "position": {
+        "x": 76.82670933405439,
+        "y": 157.89838964305528
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": -130.125250783173,
+        "y": 111.13430570058756
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Fahrer->Handynummer",
+      "source": "12",
+      "target": "15"
+    },
+    {
+      "id": "entity-attr: Fahrer->Name",
+      "source": "12",
+      "target": "14"
+    },
+    {
+      "id": "entity-attr: Kunde->NameKlingel",
+      "source": "0",
+      "target": "2"
+    },
+    {
+      "id": "entity-attr: Kunde->Adresse",
+      "source": "0",
+      "target": "3"
+    },
+    {
+      "id": "entity-attr: Bestellung->Datum",
+      "source": "4",
+      "target": "6"
+    },
+    {
+      "id": "entity-attr: Bestellung->Uhrzeit",
+      "source": "4",
+      "target": "7"
+    },
+    {
+      "id": "entity-attr: Bestellungsposition->Menge",
+      "source": "8",
+      "target": "10"
+    },
+    {
+      "id": "entity-attr: Bestellungsposition->GerichtName",
+      "source": "8",
+      "target": "11"
+    },
+    {
+      "id": "entity-attr: Gericht->Kategorie",
+      "source": "16",
+      "target": "19"
+    },
+    {
+      "id": "entity-attr: Gericht->Preis",
+      "source": "16",
+      "target": "20"
+    },
+    {
+      "id": "relationship-part: wird_erfasst$Bestellung$Kunde->Bestellung",
+      "source": "21",
+      "target": "4"
+    },
+    {
+      "id": "relationship-part: wird_erfasst$Bestellung$Kunde->Kunde",
+      "source": "21",
+      "target": "0"
+    },
+    {
+      "id": "relationship-part: wird_zugeordnet$Bestellung$Fahrer->Bestellung",
+      "source": "22",
+      "target": "4"
+    },
+    {
+      "id": "relationship-part: wird_zugeordnet$Bestellung$Fahrer->Fahrer",
+      "source": "22",
+      "target": "12"
+    },
+    {
+      "id": "relationship-part: gehoert_zu$Bestellung$Bestellungsposition->Bestellungsposition",
+      "source": "23",
+      "target": "8"
+    },
+    {
+      "id": "relationship-part: gehoert_zu$Bestellung$Bestellungsposition->Bestellung",
+      "source": "23",
+      "target": "4"
+    },
+    {
+      "id": "relationship-part: beschreibt$Bestellungsposition$Gericht->Bestellungsposition",
+      "source": "24",
+      "target": "8"
+    },
+    {
+      "id": "relationship-part: beschreibt$Bestellungsposition$Gericht->Gericht",
+      "source": "24",
+      "target": "16"
+    },
+    {
+      "id": "entity-attr: Kunde->KundeID",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr: Bestellungsposition->PositionID",
+      "source": "8",
+      "target": "9"
+    },
+    {
+      "id": "entity-attr: Fahrer->FahrerID",
+      "source": "12",
+      "target": "13"
+    },
+    {
+      "id": "entity-attr: Gericht->GerichtID",
+      "source": "16",
+      "target": "17"
+    },
+    {
+      "id": "entity-attr: Gericht->Name",
+      "source": "16",
+      "target": "18"
+    },
+    {
+      "id": "entity-attr: Bestellung->BestellungID",
+      "source": "4",
+      "target": "5"
+    }
+  ]
+}

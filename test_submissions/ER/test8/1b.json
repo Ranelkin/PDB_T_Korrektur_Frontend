@@ -1,0 +1,158 @@
+{
+  "erDoc": "entity Anbieter {\r\n  Name key\r\n  Adresse\r\n}\r\n\r\nentity Speisekarte {\r\n  ID key\r\n  Erstellungsdatum\r\n}\r\n\r\nentity Gericht {\r\n  GerichtID key\r\n  Name\r\n  Kategorie\r\n  Preis\r\n}\r\n\r\nrelation bietet_an(Anbieter, Speisekarte) {}\r\n\r\nrelation enthaelt(Speisekarte, Gericht) {}\r\n\r\n",
+  "nodes": [
+    {
+      "id": "0",
+      "position": {
+        "x": 440,
+        "y": -28.5
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": -54.5,
+        "y": 83.5
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": 74,
+        "y": 82.5
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": 625.7341772151899,
+        "y": 158.15506329113921
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": -127.41772151898715,
+        "y": 131.6993670886076
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": 166.27215189873414,
+        "y": 141.26898734177215
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 618.4240506329112,
+        "y": 484.2151898734177
+      }
+    },
+    {
+      "id": "7",
+      "position": {
+        "x": -143.88594776478135,
+        "y": 104.19806521390814
+      }
+    },
+    {
+      "id": "9",
+      "position": {
+        "x": 66.32943037974701,
+        "y": 105.03767825668973
+      }
+    },
+    {
+      "id": "10",
+      "position": {
+        "x": 188.15679778881622,
+        "y": 99.86220958179791
+      }
+    },
+    {
+      "id": "11",
+      "position": {
+        "x": 435.6392405063291,
+        "y": 137.5632911392405
+      }
+    },
+    {
+      "id": "12",
+      "position": {
+        "x": 621.0506329113923,
+        "y": 338.4018987341772
+      }
+    },
+    {
+      "id": "8",
+      "position": {
+        "x": -23.509165197885068,
+        "y": 110.91496955616088
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Anbieter->Name",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr: Anbieter->Adresse",
+      "source": "0",
+      "target": "2"
+    },
+    {
+      "id": "entity-attr: Speisekarte->ID",
+      "source": "3",
+      "target": "4"
+    },
+    {
+      "id": "entity-attr: Speisekarte->Erstellungsdatum",
+      "source": "3",
+      "target": "5"
+    },
+    {
+      "id": "entity-attr: Gericht->Kategorie",
+      "source": "6",
+      "target": "9"
+    },
+    {
+      "id": "entity-attr: Gericht->Preis",
+      "source": "6",
+      "target": "10"
+    },
+    {
+      "id": "relationship-part: bietet_an$Anbieter$Speisekarte->Anbieter",
+      "source": "11",
+      "target": "0"
+    },
+    {
+      "id": "relationship-part: bietet_an$Anbieter$Speisekarte->Speisekarte",
+      "source": "11",
+      "target": "3"
+    },
+    {
+      "id": "relationship-part: enthaelt$Gericht$Speisekarte->Speisekarte",
+      "source": "12",
+      "target": "3"
+    },
+    {
+      "id": "relationship-part: enthaelt$Gericht$Speisekarte->Gericht",
+      "source": "12",
+      "target": "6"
+    },
+    {
+      "id": "entity-attr: Gericht->GerichtID",
+      "source": "6",
+      "target": "7"
+    },
+    {
+      "id": "entity-attr: Gericht->Name",
+      "source": "6",
+      "target": "8"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "erDoc": "entity Anbieter {\r\n  Name key\r\n  Adresse\r\n}",
+  "nodes": [
+    {
+      "id": "0",
+      "position": {
+        "x": 500,
+        "y": 0
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": -54.5,
+        "y": 83.5
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": 74,
+        "y": 82.5
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Anbieter->Name",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr: Anbieter->Adresse",
+      "source": "0",
+      "target": "2"
+    }
+  ]
+}

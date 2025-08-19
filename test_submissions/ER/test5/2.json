@@ -1,0 +1,38 @@
+entity Anbieter {
+    id key
+    Name
+    Adresse
+    }
+
+entity Gericht{
+    id key
+    Name
+    Kategorie
+    Preis
+    }
+
+relation bietet_an(Anbieter 1, Gericht N!)
+
+entity Fahrer{
+    id key
+    Name
+    Handynummer
+    }
+
+entity Fortbewegungsmittel{
+    id key
+    Lieferkapazitaet
+    Beschreibung
+    }
+
+relation verfuegt(Fahrer 1!, Fortbewegungsmittel 1)
+
+entity Bestellung{
+    id key
+    Datum
+    Uhrzeit
+    Lieferadresse: [Klingelname, Adresse]
+    }
+
+relation liefert(Fahrer 1!, Bestellung N!)
+relation enthaelt(Bestellung N, Gericht N!)

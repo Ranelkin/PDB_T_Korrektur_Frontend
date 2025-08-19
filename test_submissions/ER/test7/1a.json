@@ -1,0 +1,50 @@
+{
+  "erDoc": "entity Anbieter {\r\n Name \r\n Adresse \r\n Anbieter_Nr key\r\n}\r\n",
+  "nodes": [
+    {
+      "id": "0",
+      "position": {
+        "x": 156.54767811053895,
+        "y": 170.19681307292905
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": 88.18966746269018,
+        "y": 85.05782097631084
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": -94.54767811053895,
+        "y": 47.44756466087412
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": 23.95883784740073,
+        "y": -108.19681307292905
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Anbieter->Name",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr: Anbieter->Adresse",
+      "source": "0",
+      "target": "2"
+    },
+    {
+      "id": "entity-attr: Anbieter->Anbieter_Nr",
+      "source": "0",
+      "target": "3"
+    }
+  ]
+}

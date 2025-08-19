@@ -1,0 +1,86 @@
+{
+  "erDoc": "\r\n\r\nentity Anbieter {\r\nid key}\r\n\r\nrelation bietet_an(Anbieter N, Gericht 1!)\r\n\r\nentity Gericht {\r\nName key\r\nKategorie\r\nPreis\r\n\r\n}",
+  "nodes": [
+    {
+      "id": "0",
+      "position": {
+        "x": 450.6822253124378,
+        "y": -2.4686514849078947
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": 14.674986682130339,
+        "y": 80.97887185922154
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": 826.8893225936071,
+        "y": -2.758081511824173
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": 14.644750070462578,
+        "y": 99.13854411350218
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": 0.9757283328331141,
+        "y": -109.78159155913684
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": 128.57900028185054,
+        "y": -0.7903387202426302
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 637.9526581029337,
+        "y": -28.93267792584311
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Gericht->Name",
+      "source": "2",
+      "target": "3"
+    },
+    {
+      "id": "entity-attr: Gericht->Kategorie",
+      "source": "2",
+      "target": "4"
+    },
+    {
+      "id": "entity-attr: Gericht->Preis",
+      "source": "2",
+      "target": "5"
+    },
+    {
+      "id": "relationship-part: bietet_an$Anbieter$Gericht->Anbieter",
+      "source": "6",
+      "target": "0"
+    },
+    {
+      "id": "relationship-part: bietet_an$Anbieter$Gericht->Gericht",
+      "source": "6",
+      "target": "2"
+    },
+    {
+      "id": "entity-attr: Anbieter->id",
+      "source": "0",
+      "target": "1"
+    }
+  ]
+}

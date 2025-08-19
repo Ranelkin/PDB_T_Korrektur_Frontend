@@ -1,0 +1,86 @@
+{
+  "erDoc": "entity Anbieter {\r\n    name key\r\n    addresse key\r\n}\r\n\r\nentity Imbiss extends Anbieter {}\r\nentity Restaurant extends Anbieter {}",
+  "nodes": [
+    {
+      "id": "0",
+      "position": {
+        "x": 88.3784157541142,
+        "y": 172.18264318655292
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": 64.3830316175069,
+        "y": -64.6325449740662
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": -45.383031617506845,
+        "y": -64.4748112626747
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": 28.112183932359756,
+        "y": 364.4936098403591
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": 25.112183932359642,
+        "y": 274.7696383815874
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": 142.74818076111228,
+        "y": 364.4936098403591
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 142.38417758986463,
+        "y": 276.04163203909224
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Anbieter->name",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr: Anbieter->addresse",
+      "source": "0",
+      "target": "2"
+    },
+    {
+      "id": "isA: entity: Imbiss|entity: Anbieter",
+      "source": "4",
+      "target": "3"
+    },
+    {
+      "id": "isA: entity: Anbieter|entity: Imbiss",
+      "source": "0",
+      "target": "4"
+    },
+    {
+      "id": "isA: entity: Restaurant|entity: Anbieter",
+      "source": "6",
+      "target": "5"
+    },
+    {
+      "id": "isA: entity: Anbieter|entity: Restaurant",
+      "source": "0",
+      "target": "6"
+    }
+  ]
+}

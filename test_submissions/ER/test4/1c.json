@@ -1,0 +1,146 @@
+{
+  "erDoc": "entity Fahrer {\r\n    Name\r\n    Handynummer key\r\n}\r\n \r\nentity Lieferdienst {\r\n    Name key\r\n    Adresse key\r\n}\r\n\r\nentity Transportmittel {\r\n    Lieferkapazitaet\r\n    Beschreibung\r\n    ID key\r\n}\r\n \r\nrelation beschaeftigt(Fahrer 1, Lieferdienst N!)\r\n\r\nrelation verfuegt_ueber(Fahrer N!, Transportmittel 1!)",
+  "nodes": [
+    {
+      "id": "3",
+      "position": {
+        "x": 505.9047279237209,
+        "y": -36.378362821472514
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": -17.469518429085383,
+        "y": 91.66182832207706
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": 89.21843695377538,
+        "y": 91.66182832207706
+      }
+    },
+    {
+      "id": "0",
+      "position": {
+        "x": 884.5427200507219,
+        "y": -37.43753558765685
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": 129.10239944737282,
+        "y": -17.03827303094561
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": 105.59866419529749,
+        "y": 32.253085504231784
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 867.6414178060365,
+        "y": 245.143145249133
+      }
+    },
+    {
+      "id": "7",
+      "position": {
+        "x": 134.8796530277923,
+        "y": 40.64994178163158
+      }
+    },
+    {
+      "id": "8",
+      "position": {
+        "x": 142.49308033406896,
+        "y": -38.93215934473068
+      }
+    },
+    {
+      "id": "9",
+      "position": {
+        "x": 46.65311930181565,
+        "y": 62.47822744934672
+      }
+    },
+    {
+      "id": "10",
+      "position": {
+        "x": 701.6676343355846,
+        "y": -64.20392192000669
+      }
+    },
+    {
+      "id": "11",
+      "position": {
+        "x": 883.7412761280996,
+        "y": 84.1458258124953
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Lieferdienst->Name",
+      "source": "3",
+      "target": "4"
+    },
+    {
+      "id": "entity-attr: Lieferdienst->Adresse",
+      "source": "3",
+      "target": "5"
+    },
+    {
+      "id": "entity-attr: Fahrer->Name",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr: Fahrer->Handynummer",
+      "source": "0",
+      "target": "2"
+    },
+    {
+      "id": "entity-attr: Transportmittel->Lieferkapazitaet",
+      "source": "6",
+      "target": "7"
+    },
+    {
+      "id": "entity-attr: Transportmittel->Beschreibung",
+      "source": "6",
+      "target": "8"
+    },
+    {
+      "id": "entity-attr: Transportmittel->ID",
+      "source": "6",
+      "target": "9"
+    },
+    {
+      "id": "relationship-part: beschaeftigt$Fahrer$Lieferdienst->Fahrer",
+      "source": "10",
+      "target": "0"
+    },
+    {
+      "id": "relationship-part: beschaeftigt$Fahrer$Lieferdienst->Lieferdienst",
+      "source": "10",
+      "target": "3"
+    },
+    {
+      "id": "relationship-part: verfuegt_ueber$Fahrer$Transportmittel->Fahrer",
+      "source": "11",
+      "target": "0"
+    },
+    {
+      "id": "relationship-part: verfuegt_ueber$Fahrer$Transportmittel->Transportmittel",
+      "source": "11",
+      "target": "6"
+    }
+  ]
+}

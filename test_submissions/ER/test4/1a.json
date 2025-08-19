@@ -1,0 +1,86 @@
+{
+  "erDoc": "entity Anbieter {\r\n    Name key\r\n    Adresse key\r\n}\r\n \r\nentity Lieferdienst {\r\n    Name key\r\n    Adresse key\r\n}\r\n\r\n \r\nrelation liefert_fuer(Anbieter 1!, Lieferdienst N!)",
+  "nodes": [
+    {
+      "id": "0",
+      "position": {
+        "x": 865.2890539484479,
+        "y": 25.763080886434864
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": -30.416180458337294,
+        "y": 104.96609937794827
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": 48.49380332558485,
+        "y": 105.32617159465207
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": 520.0311426468872,
+        "y": 25.498831143536762
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": -8.13037080812353,
+        "y": 106.67221491284943
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": 71.57466906511195,
+        "y": 107.27877990492664
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 700,
+        "y": 0
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Anbieter->Name",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr: Anbieter->Adresse",
+      "source": "0",
+      "target": "2"
+    },
+    {
+      "id": "entity-attr: Lieferdienst->Name",
+      "source": "3",
+      "target": "4"
+    },
+    {
+      "id": "entity-attr: Lieferdienst->Adresse",
+      "source": "3",
+      "target": "5"
+    },
+    {
+      "id": "relationship-part: liefert_fuer$Anbieter$Lieferdienst->Anbieter",
+      "source": "6",
+      "target": "0"
+    },
+    {
+      "id": "relationship-part: liefert_fuer$Anbieter$Lieferdienst->Lieferdienst",
+      "source": "6",
+      "target": "3"
+    }
+  ]
+}

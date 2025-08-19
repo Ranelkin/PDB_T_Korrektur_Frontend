@@ -1,0 +1,170 @@
+{
+  "erDoc": "entity Lieferdienst {\r\n    adresse key\r\n}\r\n\r\nentity Fahrer {\r\n    handynummer key\r\n    name\r\n}\r\n\r\nrelation Arbeitet_fuer(Lieferdienst 1!, Fahrer N!)\r\n\r\nentity Fahrzeug {\r\n    beschreibung key\r\n    kapazitaet\r\n}\r\n\r\nrelation Faehrt(Fahrer 1, Fahrzeug 1)\r\n\r\nentity Fahrrad extends Fahrzeug {}\r\nentity Auto extends Fahrzeug {}",
+  "nodes": [
+    {
+      "id": "2",
+      "position": {
+        "x": 644.9761737604795,
+        "y": 0.1856752042625942
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": -70,
+        "y": 100
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": 75.12439170649077,
+        "y": 100
+      }
+    },
+    {
+      "id": "0",
+      "position": {
+        "x": 1080.5275027928537,
+        "y": 0.41529352606021064
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": 14.062513271397393,
+        "y": 84.238278761613
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": 868.3113189747869,
+        "y": -197.79412995543626
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": -96.81977920272209,
+        "y": -105.0924291972864
+      }
+    },
+    {
+      "id": "7",
+      "position": {
+        "x": 74.93761836054705,
+        "y": -105.0924291972864
+      }
+    },
+    {
+      "id": "8",
+      "position": {
+        "x": 1183.4140822934569,
+        "y": -143.40344706456239
+      }
+    },
+    {
+      "id": "9",
+      "position": {
+        "x": 1050.5548446724656,
+        "y": -154.50312411536646
+      }
+    },
+    {
+      "id": "10",
+      "position": {
+        "x": 1184.9685115967407,
+        "y": -258.4795286606378
+      }
+    },
+    {
+      "id": "11",
+      "position": {
+        "x": 1050.7962490205584,
+        "y": -268.58707325518094
+      }
+    },
+    {
+      "id": "12",
+      "position": {
+        "x": 865.5,
+        "y": -26
+      }
+    },
+    {
+      "id": "13",
+      "position": {
+        "x": 642.241732799167,
+        "y": -223.45970496902234
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Fahrer->handynummer",
+      "source": "2",
+      "target": "3"
+    },
+    {
+      "id": "entity-attr: Fahrer->name",
+      "source": "2",
+      "target": "4"
+    },
+    {
+      "id": "entity-attr: Lieferdienst->adresse",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr: Fahrzeug->beschreibung",
+      "source": "5",
+      "target": "6"
+    },
+    {
+      "id": "entity-attr: Fahrzeug->kapazitaet",
+      "source": "5",
+      "target": "7"
+    },
+    {
+      "id": "isA: entity: Fahrrad|entity: Fahrzeug",
+      "source": "9",
+      "target": "8"
+    },
+    {
+      "id": "isA: entity: Fahrzeug|entity: Fahrrad",
+      "source": "5",
+      "target": "9"
+    },
+    {
+      "id": "isA: entity: Auto|entity: Fahrzeug",
+      "source": "11",
+      "target": "10"
+    },
+    {
+      "id": "isA: entity: Fahrzeug|entity: Auto",
+      "source": "5",
+      "target": "11"
+    },
+    {
+      "id": "relationship-part: Arbeitet_fuer$Fahrer$Lieferdienst->Lieferdienst",
+      "source": "12",
+      "target": "0"
+    },
+    {
+      "id": "relationship-part: Arbeitet_fuer$Fahrer$Lieferdienst->Fahrer",
+      "source": "12",
+      "target": "2"
+    },
+    {
+      "id": "relationship-part: Faehrt$Fahrer$Fahrzeug->Fahrer",
+      "source": "13",
+      "target": "2"
+    },
+    {
+      "id": "relationship-part: Faehrt$Fahrer$Fahrzeug->Fahrzeug",
+      "source": "13",
+      "target": "5"
+    }
+  ]
+}

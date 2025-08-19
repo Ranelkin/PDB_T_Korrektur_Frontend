@@ -1,0 +1,86 @@
+{
+  "erDoc": "entity Gericht {\r\n    Name key\r\n    Kategorie\r\n    Preis key\r\n}\r\n\r\nentity Speisekarte depends on Ist_in{\r\n    Name pkey\r\n}\r\n\r\nrelation Ist_in(Gericht N!, Speisekarte 1!)",
+  "nodes": [
+    {
+      "id": "0",
+      "position": {
+        "x": 500,
+        "y": 0
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": -70,
+        "y": 100
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": 0,
+        "y": 100
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": 100,
+        "y": 105
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": 664.8957317073172,
+        "y": 211.61646341463415
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": -70,
+        "y": 100
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 700,
+        "y": 0
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Gericht->Name",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr: Gericht->Kategorie",
+      "source": "0",
+      "target": "2"
+    },
+    {
+      "id": "entity-attr: Gericht->Preis",
+      "source": "0",
+      "target": "3"
+    },
+    {
+      "id": "entity-attr: Speisekarte->Name",
+      "source": "4",
+      "target": "5"
+    },
+    {
+      "id": "relationship-part: Ist_in$Gericht$Speisekarte->Gericht",
+      "source": "6",
+      "target": "0"
+    },
+    {
+      "id": "relationship-part: Ist_in$Gericht$Speisekarte->Speisekarte",
+      "source": "6",
+      "target": "4"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "erDoc": "entity Anbieter {\r\n    name key\r\n    addresse key\r\n}\r\n\r\nentity Gericht {\r\n    name key\r\n    kategorie\r\n    preis key\r\n}\r\n\r\nrelation Speisekarte(Anbieter M, Gericht N)",
+  "nodes": [
+    {
+      "id": "0",
+      "position": {
+        "x": 500.7340828952422,
+        "y": -1.468165790484342
+      }
+    },
+    {
+      "id": "1",
+      "position": {
+        "x": -27,
+        "y": 106
+      }
+    },
+    {
+      "id": "2",
+      "position": {
+        "x": 44,
+        "y": 107
+      }
+    },
+    {
+      "id": "3",
+      "position": {
+        "x": 932.584381228296,
+        "y": -3.1385802666952074
+      }
+    },
+    {
+      "id": "4",
+      "position": {
+        "x": -58.26741088487415,
+        "y": 142.31868439467794
+      }
+    },
+    {
+      "id": "5",
+      "position": {
+        "x": 13.60835494365142,
+        "y": 145.78479959246317
+      }
+    },
+    {
+      "id": "6",
+      "position": {
+        "x": 109.12425114229245,
+        "y": 135.49602869499356
+      }
+    },
+    {
+      "id": "7",
+      "position": {
+        "x": 703.847350459167,
+        "y": -27.93633158096869
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entity-attr: Anbieter->name",
+      "source": "0",
+      "target": "1"
+    },
+    {
+      "id": "entity-attr: Anbieter->addresse",
+      "source": "0",
+      "target": "2"
+    },
+    {
+      "id": "entity-attr: Gericht->name",
+      "source": "3",
+      "target": "4"
+    },
+    {
+      "id": "entity-attr: Gericht->kategorie",
+      "source": "3",
+      "target": "5"
+    },
+    {
+      "id": "entity-attr: Gericht->preis",
+      "source": "3",
+      "target": "6"
+    },
+    {
+      "id": "relationship-part: Speisekarte$Anbieter$Gericht->Anbieter",
+      "source": "7",
+      "target": "0"
+    },
+    {
+      "id": "relationship-part: Speisekarte$Anbieter$Gericht->Gericht",
+      "source": "7",
+      "target": "3"
+    }
+  ]
+}
