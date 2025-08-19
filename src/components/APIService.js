@@ -206,42 +206,85 @@ export const uploadSubmissions = async (exerciseType, file) => {
 
 export const connectToDepictFiles = (exerciseType, onFilesReceived, onError) => {
   const token = localStorage.getItem('authToken');
+  
   if (!token) {
     console.error('No authentication token found');
     onError(new Error('Please log in to connect to WebSocket'));
-    return;
+    return null;
   }
 
-  const ws = new WebSocket(`ws://localhost:8000/ws/depict-corrected-files?exercise_type=${exerciseType}&token=${token}`);
+  const encodedToken = encodeURIComponent(token);
+  const wsUrl = `ws://localhost:8000/ws/depict-corrected-files?exercise_type=${exerciseType}&token=${encodedToken}`;
   
+  const ws = new WebSocket(wsUrl);
+  
+  const connectionTimeout = setTimeout(() => {
+    if (ws.readyState === WebSocket.CONNECTING) {
+      ws.close();
+      onError(new Error('WebSocket connection timeout'));
+    }
+  }, 10000); 
+
   ws.onopen = () => {
+    clearTimeout(connectionTimeout);
     console.log('WebSocket connected for depict-corrected-files');
   };
 
   ws.onmessage = (event) => {
     try {
       const data = JSON.parse(event.data);
+      
       if (data.error) {
+        console.error('Server error:', data.error);
         onError(new Error(data.error));
+      } else if (data.available_files) {
+        console.log(`Received ${data.available_files.length} files`);
+        onFilesReceived(data.available_files);
       } else {
-        onFilesReceived(data.available_files || []);
+        console.warn('Unexpected message format:', data);
       }
     } catch (error) {
       console.error('Error parsing WebSocket message:', error);
-      onError(error);
+      onError(new Error('Failed to parse server response'));
     }
   };
 
   ws.onerror = (error) => {
+    clearTimeout(connectionTimeout);
     console.error('WebSocket error:', error);
-    onError(error);
+    
+    if (ws.readyState === WebSocket.CLOSED) {
+      onError(new Error('Failed to connect to server. Please check your authentication.'));
+    } else {
+      onError(new Error('WebSocket connection error'));
+    }
   };
 
-  ws.onclose = () => {
-    console.log('WebSocket closed');
+  ws.onclose = (event) => {
+    clearTimeout(connectionTimeout);
+    console.log('WebSocket closed', {
+      code: event.code,
+      reason: event.reason,
+      wasClean: event.wasClean
+    });
+    
+    // Close codes handling 
+    if (event.code === 1008) {
+      // Policy violation - likely authentication failed
+      onError(new Error('Authentication failed. Please log in again.'));
+    } else if (event.code === 1006) {
+      // Abnormal closure
+      onError(new Error('Connection lost unexpectedly'));
+    }
   };
 
-  return () => ws.close();
+  //Cleanup 
+  return () => {
+    clearTimeout(connectionTimeout);
+    if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
+      ws.close(1000, 'Client closing connection');
+    }
+  };
 };
 
 export const registerUser = async (username, password, role) => {
