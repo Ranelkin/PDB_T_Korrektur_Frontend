@@ -32,7 +32,7 @@ function App() {
       } else {
         // Token invalid, clear it
         localStorage.removeItem('authToken');
-    localStorage.removeItem('refreshToken');
+        localStorage.removeItem('refreshToken');
       }
     } catch (error) {
       console.error('Error validating token:', error);
