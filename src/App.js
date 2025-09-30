@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     // Check if token exists in localStorage
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     if (token) {
       validateToken(token);
     }
@@ -31,11 +31,13 @@ function App() {
         setIsLoggedIn(true);
       } else {
         // Token invalid, clear it
-        localStorage.removeItem('token');
+        localStorage.removeItem('authToken');
+    localStorage.removeItem('refreshToken');
       }
     } catch (error) {
       console.error('Error validating token:', error);
-      localStorage.removeItem('token');
+      localStorage.removeItem('authToken');
+    localStorage.removeItem('refreshToken');
     }
   };
 
@@ -45,7 +47,8 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('refreshToken');
     setIsLoggedIn(false);
     setUsername('');
   };
